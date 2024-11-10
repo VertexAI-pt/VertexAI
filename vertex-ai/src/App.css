@@ -1,5 +1,5 @@
 .App {
-        text-align: center;
+        background-color: black;
 }
 
 .App-logo {
@@ -14,42 +14,53 @@
 }
 
 .App-nav {
-        background-color: #e4e4e4;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        backdrop-filter: blur(30px);
+        box-shadow: 0px 0px 30px rgba(227, 228, 237, 0.37);
+        border: 2px solid rgba(255, 228, 237, 0.18);
+        padding: 10px;
+        width: 100%;
+        justify-items: center;
+}
+
+.App-item1 {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+}
+
+.App-item2 {
+        display: grid;
+        grid-template-columns: repeat(4, 2fr);
+        gap: 20px;
+}
+
+.App-item3 {
+        display: grid;
+        grid-template-columns: repeat(4, 3fr);
+        gap: 20px;
 }
 
 .App-nav ul {
         list-style: none;
+        padding: 0;
+        margin: 0;
+        display: block;
 }
 
-.App-item1 {
-        text-decoration: none;
-        color: black;
+.App-nav li {
+        margin-bottom: 10px;
 }
 
-.App-item2 {
-        text-decoration: none;
-        color: black;
-}
-
-.App-item3 {
-        text-decoration: none;
-        color: black;
-}
-
+.App-item1,
+.App-item2,
+.App-item3,
 .App-item4 {
         text-decoration: none;
-        color: black;
+        color: white;
+        font-size: 18px;
 }
 
-.App-menu {
-        text-decoration: none;
-}
 .App-header {
-        background-color: #e4e4e4;
         min-height: 100vh;
         display: flex;
         flex-direction: column;
@@ -68,11 +79,11 @@
                 "Helvetica Neue",
                 sans-serif;
         font-size: calc(100px + 2vmin);
-        color: rgb(0, 0, 0);
+        color: white;
 }
 
 .App-link {
-        color: #000000;
+        color: white;
         text-decoration: none;
         font-size: 10px;
 }
