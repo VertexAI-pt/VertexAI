@@ -4,6 +4,14 @@ function App() {
         return (
                 <div className="App">
                         <nav className="App-nav">
+                                <div className="App-logo">
+                                        <img
+                                                className="logo"
+                                                src="./img/Vertexailogo.png"
+                                                alt="Logo"
+                                        />
+                                </div>
+
                                 <ul>
                                         <li>
                                                 <a
@@ -50,6 +58,8 @@ function App() {
                                         Git Repository
                                 </a>
                         </header>
+
+                        <footer></footer>
                 </div>
         );
 }
