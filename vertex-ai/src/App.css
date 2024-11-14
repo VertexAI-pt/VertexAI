@@ -12,14 +12,7 @@
 }
 
 .logo {
-        max-width: 100px;
-        max-height: 100px;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-        .App-logo {
-                animation: App-logo-spin infinite 100s linear;
-        }
+        height: 100px;
 }
 
 .App-nav {
@@ -38,10 +31,11 @@
         margin: 0;
         display: block;
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(5, 1fr);
         gap: 20px;
         justify-content: space-evenly;
         text-align: center;
+        align-items: center;
 }
 
 .App-nav li {
@@ -82,11 +76,12 @@
         font-size: 10px;
 }
 
-@keyframes App-logo-spin {
-        from {
-                transform: rotate(0deg);
-        }
-        to {
-                transform: rotate(360deg);
-        }
+.App-footer {
+        backdrop-filter: blur(30px);
+        box-shadow: 0px 0px 30px rgba(227, 228, 237, 0.37);
+        border: 2px solid rgba(255, 228, 237, 0.18);
+        padding: 10px;
+        width: 100%;
+        position: fixed;
+        justify-content: space-evenly;
 }

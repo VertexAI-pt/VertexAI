@@ -4,15 +4,15 @@ function App() {
         return (
                 <div className="App">
                         <nav className="App-nav">
-                                <div className="App-logo">
-                                        <img
-                                                className="logo"
-                                                src="./img/Vertexailogo.png"
-                                                alt="Logo"
-                                        />
-                                </div>
-
                                 <ul>
+                                        <div className="App-logo">
+                                                <img
+                                                        className="logo"
+                                                        src="./img/Vertexailogo-removebg-preview.png"
+                                                        alt="Logo"
+                                                />
+                                        </div>
+
                                         <li>
                                                 <a
                                                         className="App-item1"
@@ -59,7 +59,62 @@ function App() {
                                 </a>
                         </header>
 
-                        <footer></footer>
+                        <footer className="App-footer">
+                                <div className="Footer-left">
+                                        <h1>Resources</h1>
+                                        <ul>
+                                                <li>
+                                                        <a href="">
+                                                                Help Center
+                                                        </a>
+                                                </li>
+
+                                                <li>
+                                                        <a href="">Blog</a>
+                                                </li>
+
+                                                <li>
+                                                        <a href="">FAQ's</a>
+                                                </li>
+                                        </ul>
+                                </div>
+
+                                <div className="Footer-center">
+                                        <h1>Company</h1>
+                                        <ul>
+                                                <li>
+                                                        <a href="">About Us</a>
+                                                </li>
+
+                                                <li>
+                                                        <a href="">
+                                                                Our Partners
+                                                        </a>
+                                                </li>
+
+                                                <li>
+                                                        <a href="">Book Call</a>
+                                                </li>
+                                        </ul>
+                                </div>
+
+                                <div className="Footer-right">
+                                        <h1>Contact</h1>
+                                        <ul>
+                                                <li>
+                                                        <a href="">Instagram</a>
+                                                </li>
+
+                                                <li>
+                                                        <a href="">Facebook</a>
+                                                </li>
+
+                                                <li>
+                                                        <a href="">Whatsapp</a>
+                                                </li>
+                                        </ul>
+                                </div>
+                        </footer>
                 </div>
         );
 }
