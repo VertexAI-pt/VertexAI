@@ -38,10 +38,6 @@
         align-items: center;
 }
 
-.App-nav li {
-        margin-bottom: 10px;
-}
-
 .App-item1,
 .App-item2,
 .App-item3,
@@ -55,7 +51,16 @@
 .App-item1:hover,
 .App-item2:hover,
 .App-item3:hover,
-.App-item4:hover {
+.App-item4:hover,
+.App-item5:hover,
+.App-item6:hover,
+.App-item7:hover,
+.App-item8:hover, 
+.App-item9:hover,
+.App-item10:hover,
+.App-item11:hover,
+.App-item12:hover,
+.App-item13:hover {
         font-weight: bold;
 }
 
@@ -77,11 +82,47 @@
 }
 
 .App-footer {
+        padding: 50px;
+        margin: 0;
+        display: block;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        justify-content: space-evenly;
+        text-align: center;
+        align-items: center;
         backdrop-filter: blur(30px);
         box-shadow: 0px 0px 30px rgba(227, 228, 237, 0.37);
         border: 2px solid rgba(255, 228, 237, 0.18);
-        padding: 10px;
         width: 100%;
-        position: fixed;
-        justify-content: space-evenly;
+}
+
+.Footer-left,
+.Footer-center,
+.Footer-right {
+        text-align: center;
+        font-size: 12px;
+        color: rgb(255, 255, 255);
+}
+
+.Footer-left ul,
+.Footer-center ul,
+.Footer-right ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+}
+
+.App-item5,
+.App-item6,
+.App-item7,
+.App-item8, 
+.App-item9,
+.App-item10,
+.App-item11,
+.App-item12,
+.App-item13 {
+        text-decoration: none;
+        color: white;
+        font-size: 15px;
 }

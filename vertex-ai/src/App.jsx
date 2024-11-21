@@ -64,17 +64,31 @@ function App() {
                                         <h1>Resources</h1>
                                         <ul>
                                                 <li>
-                                                        <a href="">
+                                                        <a 
+                                                                className="App-item5"
+                                                                href=""
+                                                        
+                                                        >
                                                                 Help Center
                                                         </a>
                                                 </li>
 
                                                 <li>
-                                                        <a href="">Blog</a>
+                                                        <a 
+                                                                className="App-item6"
+                                                                href=""
+                                                        >
+                                                                        Blog
+                                                        </a>
                                                 </li>
 
                                                 <li>
-                                                        <a href="">FAQ's</a>
+                                                        <a 
+                                                                className="App-item7"
+                                                                href=""
+                                                        >
+                                                                FAQ's
+                                                        </a>
                                                 </li>
                                         </ul>
                                 </div>
@@ -83,17 +97,30 @@ function App() {
                                         <h1>Company</h1>
                                         <ul>
                                                 <li>
-                                                        <a href="">About Us</a>
+                                                        <a 
+                                                                className="App-item8"
+                                                                href=""
+                                                        >
+                                                                About Us
+                                                        </a>
                                                 </li>
 
                                                 <li>
-                                                        <a href="">
+                                                        <a 
+                                                                className="App-item9"
+                                                                href=""
+                                                        >
                                                                 Our Partners
                                                         </a>
                                                 </li>
 
                                                 <li>
-                                                        <a href="">Book Call</a>
+                                                        <a 
+                                                                className="App-item10"
+                                                                href=""
+                                                        >
+                                                                Book Call
+                                                        </a>
                                                 </li>
                                         </ul>
                                 </div>
@@ -102,15 +129,30 @@ function App() {
                                         <h1>Contact</h1>
                                         <ul>
                                                 <li>
-                                                        <a href="">Instagram</a>
+                                                        <a 
+                                                                className="App-item11"
+                                                                href=""
+                                                        >
+                                                                Instagram
+                                                        </a>
                                                 </li>
 
                                                 <li>
-                                                        <a href="">Facebook</a>
+                                                        <a 
+                                                                className="App-item12" 
+                                                                href=""
+                                                        >
+                                                                Facebook
+                                                        </a>
                                                 </li>
 
                                                 <li>
-                                                        <a href="">Whatsapp</a>
+                                                        <a 
+                                                                className="App-item13"
+                                                                href=""
+                                                        >
+                                                                Whatsapp
+                                                        </a>
                                                 </li>
                                         </ul>
                                 </div>
