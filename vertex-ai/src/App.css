@@ -5,6 +5,7 @@
 
 .App {
         background-color: black;
+        max-width: 100%;
 }
 
 .App-logo {
@@ -19,6 +20,7 @@
         backdrop-filter: blur(30px);
         box-shadow: 0px 0px 30px rgba(227, 228, 237, 0.37);
         border: 2px solid rgba(255, 228, 237, 0.18);
+        border-radius: 15px;
         padding: 10px;
         width: 100%;
         position: fixed;
@@ -55,7 +57,7 @@
 .App-item5:hover,
 .App-item6:hover,
 .App-item7:hover,
-.App-item8:hover, 
+.App-item8:hover,
 .App-item9:hover,
 .App-item10:hover,
 .App-item11:hover,
@@ -94,7 +96,8 @@
         backdrop-filter: blur(30px);
         box-shadow: 0px 0px 30px rgba(227, 228, 237, 0.37);
         border: 2px solid rgba(255, 228, 237, 0.18);
-        width: 100%;
+        border-radius: 15px;
+        max-width: 100%;
 }
 
 .Footer-left,
@@ -116,7 +119,7 @@
 .App-item5,
 .App-item6,
 .App-item7,
-.App-item8, 
+.App-item8,
 .App-item9,
 .App-item10,
 .App-item11,
