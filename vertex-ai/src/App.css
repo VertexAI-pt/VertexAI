@@ -4,8 +4,9 @@
 }
 
 .App {
-        background-color: black;
+        background-color: #111111;
         max-width: 100%;
+        
 }
 
 .App-logo {
@@ -21,7 +22,6 @@
         box-shadow: 0px 0px 30px rgba(227, 228, 237, 0.37);
         border: 2px solid rgba(255, 228, 237, 0.18);
         border-radius: 15px;
-        padding: 10px;
         width: 100%;
         position: fixed;
         justify-content: space-evenly;
