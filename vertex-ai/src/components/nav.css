@@ -1,0 +1,47 @@
+.App-logo {
+        pointer-events: none;
+}
+
+.logo {
+        height: 100px;
+}
+
+.App-nav {
+        backdrop-filter: blur(30px);
+        box-shadow: 0px 0px 30px rgba(227, 228, 237, 0.37);
+        border: 2px solid rgba(255, 228, 237, 0.18);
+        border-radius: 15px;
+        width: 100%;
+        position: fixed;
+        justify-content: space-evenly;
+}
+
+.App-nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: block;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 20px;
+        justify-content: space-evenly;
+        text-align: center;
+        align-items: center;
+}
+
+.App-item1,
+.App-item2,
+.App-item3,
+.App-item4 {
+        text-decoration: none;
+        color: white;
+        font-size: 20px;
+        gap: 20px;
+}
+
+.App-item1:hover,
+.App-item2:hover,
+.App-item3:hover,
+.App-item4:hover {
+        font-weight: bold;
+}

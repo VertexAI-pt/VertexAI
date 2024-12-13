@@ -1,0 +1,9 @@
+@font-face {
+        font-family: titulo;
+        src: src= "Robot9000-MVxZx.tff";
+}
+
+.App {
+        background-color: #111111;
+        max-width: 100%;
+}
