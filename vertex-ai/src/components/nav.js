@@ -1,4 +1,6 @@
 import "./nav.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 export default function Nav() {
         return (
@@ -8,7 +10,7 @@ export default function Nav() {
                                         <img
                                                 className="logo"
                                                 src="./img/Vertexailogo-removebg-preview.png"
-                                                alt="Logo"
+                                                alt="Vertex.AI Logo"
                                         />
                                 </div>
 
@@ -17,11 +19,7 @@ export default function Nav() {
                                                 Home
                                         </a>
                                 </li>
-                                <li>
-                                        <a className="App-item2" href="">
-                                                Services
-                                        </a>
-                                </li>
+
                                 <li>
                                         <a className="App-item3" href="">
                                                 About
@@ -31,6 +29,15 @@ export default function Nav() {
                                         <a className="App-item4" href="/chat">
                                                 Chat
                                         </a>
+                                </li>
+
+                                <li>
+                                        <FontAwesomeIcon
+                                                icon={faUser}
+                                                bounce
+                                                size="lg"
+                                                style={{ color: "#ffffff" }}
+                                        />
                                 </li>
                         </ul>
                 </nav>
