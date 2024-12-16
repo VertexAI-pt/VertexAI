@@ -32,12 +32,16 @@ export default function Nav() {
                                 </li>
 
                                 <li>
-                                        <FontAwesomeIcon
-                                                icon={faUser}
-                                                bounce
-                                                size="lg"
-                                                style={{ color: "#ffffff" }}
-                                        />
+                                        <button className="Login-button">
+                                                <FontAwesomeIcon
+                                                        icon={faUser}
+                                                        bounce
+                                                        size="lg"
+                                                        style={{
+                                                                color: "#ffffff",
+                                                        }}
+                                                />
+                                        </button>
                                 </li>
                         </ul>
                 </nav>
