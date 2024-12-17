@@ -1,0 +1,10 @@
+.Login-Form {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: titulo;
+        font-size: calc(100px + 2vmin);
+        color: white;
+}

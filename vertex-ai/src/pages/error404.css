@@ -1,7 +1,27 @@
 .App {
         background-color: #111111;
         max-width: 100%;
+}
+
+.Error-404 {
+        min-height: 100vh;
+        color: white;
+        font-family: titulo;
+        font-size: calc(15px + 2vmin);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         align-items: center;
         text-align: center;
+}
+
+.Error-404 .GoHome-Button {
         color: white;
+        text-decoration: none;
+        color: white;
+        font-size: 20px;
+}
+
+.Error-404 .GoHome-Button:hover {
+        font-weight: bold;
 }

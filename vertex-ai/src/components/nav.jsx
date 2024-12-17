@@ -21,7 +21,7 @@ export default function Nav() {
                                 </li>
 
                                 <li>
-                                        <a className="App-item3" href="">
+                                        <a className="App-item3" href="/about">
                                                 About
                                         </a>
                                 </li>
@@ -32,16 +32,20 @@ export default function Nav() {
                                 </li>
 
                                 <li>
-                                        <button className="Login-button">
+                                        <a
+                                                className="Login-button"
+                                                href="/login"
+                                        >
                                                 <FontAwesomeIcon
                                                         icon={faUser}
                                                         bounce
+                                                        href="/login"
                                                         size="lg"
                                                         style={{
                                                                 color: "#ffffff",
                                                         }}
                                                 />
-                                        </button>
+                                        </a>
                                 </li>
                         </ul>
                 </nav>
