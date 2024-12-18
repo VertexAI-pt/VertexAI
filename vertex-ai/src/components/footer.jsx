@@ -9,7 +9,7 @@ export default function Footer() {
                                         <li>
                                                 <a
                                                         className="App-item5"
-                                                        href=""
+                                                        href="/help"
                                                 >
                                                         Help Center
                                                 </a>
@@ -18,7 +18,7 @@ export default function Footer() {
                                         <li>
                                                 <a
                                                         className="App-item6"
-                                                        href=""
+                                                        href="/blog"
                                                 >
                                                         Blog
                                                 </a>
@@ -27,7 +27,7 @@ export default function Footer() {
                                         <li>
                                                 <a
                                                         className="App-item7"
-                                                        href=""
+                                                        href="/faq"
                                                 >
                                                         FAQ's
                                                 </a>
@@ -41,7 +41,7 @@ export default function Footer() {
                                         <li>
                                                 <a
                                                         className="App-item8"
-                                                        href=""
+                                                        href="/about"
                                                 >
                                                         About Us
                                                 </a>
@@ -50,7 +50,7 @@ export default function Footer() {
                                         <li>
                                                 <a
                                                         className="App-item9"
-                                                        href=""
+                                                        href="/partners"
                                                 >
                                                         Our Partners
                                                 </a>
@@ -59,7 +59,7 @@ export default function Footer() {
                                         <li>
                                                 <a
                                                         className="App-item10"
-                                                        href=""
+                                                        href="/book"
                                                 >
                                                         Book Call
                                                 </a>
@@ -73,7 +73,7 @@ export default function Footer() {
                                         <li>
                                                 <a
                                                         className="App-item11"
-                                                        href=""
+                                                        href="www.instagram.com"
                                                 >
                                                         Instagram
                                                 </a>
@@ -82,7 +82,7 @@ export default function Footer() {
                                         <li>
                                                 <a
                                                         className="App-item12"
-                                                        href=""
+                                                        href="www.facebook.com"
                                                 >
                                                         Facebook
                                                 </a>
@@ -91,7 +91,7 @@ export default function Footer() {
                                         <li>
                                                 <a
                                                         className="App-item13"
-                                                        href=""
+                                                        href="www.whatsapp.com"
                                                 >
                                                         Whatsapp
                                                 </a>

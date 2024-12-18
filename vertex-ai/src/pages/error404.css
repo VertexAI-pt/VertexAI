@@ -5,7 +5,7 @@
 
 .Error-404 {
         min-height: 100vh;
-        color: white;
+        color: grey;
         font-family: titulo;
         font-size: calc(15px + 2vmin);
         display: flex;
@@ -16,12 +16,12 @@
 }
 
 .Error-404 .GoHome-Button {
-        color: white;
+        color: grey;
         text-decoration: none;
-        color: white;
         font-size: 20px;
 }
 
 .Error-404 .GoHome-Button:hover {
         font-weight: bold;
+        color: white;
 }

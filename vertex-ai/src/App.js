@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/home";
 import Chat from "./pages/chat";
-import Login from "./pages/login";
+import Signin from "./pages/signin";
 import Error404 from "./pages/error404";
 
 export default function App() {
@@ -26,8 +26,8 @@ export default function App() {
                                         />
 
                                         <Route
-                                                path="/login"
-                                                element={<Login />}
+                                                path="/signin"
+                                                element={<Signin />}
                                         />
                                 </Routes>
                         </BrowserRouter>

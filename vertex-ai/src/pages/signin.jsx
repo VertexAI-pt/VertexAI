@@ -1,13 +1,13 @@
-import "./login.css";
+import "./signin.css";
 import Nav from "../components/nav";
-import LoginForm from "../components/loginform";
 import Footer from "../components/footer";
+import SigninForm from "../components/signinform";
 
 export default function Login() {
         return (
                 <div className="App">
                         <Nav />
-                        <LoginForm />
+                        <SigninForm />
                         <Footer />
                 </div>
         );

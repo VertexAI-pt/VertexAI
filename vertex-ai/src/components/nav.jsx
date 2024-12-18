@@ -33,13 +33,13 @@ export default function Nav() {
 
                                 <li>
                                         <a
-                                                className="Login-button"
-                                                href="/login"
+                                                className="Signin-button"
+                                                href="/signin"
                                         >
                                                 <FontAwesomeIcon
                                                         icon={faUser}
                                                         bounce
-                                                        href="/login"
+                                                        href="/signin"
                                                         size="lg"
                                                         style={{
                                                                 color: "#ffffff",

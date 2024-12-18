@@ -6,7 +6,7 @@ export default function Chat() {
         return (
                 <div className="App">
                         <Nav />
-                        <div className="chat">
+                        <div className="Chat-Section">
                                 <h1>Chat Coming Soon...</h1>
                         </div>
                         <Footer />
