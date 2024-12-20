@@ -4,25 +4,36 @@ export default function SigninForm() {
         return (
                 <div className="Signin-Form">
                         <form>
-                                <p>Hello, Good To See You Here!</p>
-                                <label for="name">Your Name:</label>
-                                <input type="text" id="name" name="name" />
-                                <label for="email">Your Email:</label>
-                                <input type="text" id="email" name="email" />
-                                <label for="password">
-                                        Choose Your Password:
-                                </label>
-                                <input
-                                        type="text"
-                                        id="password"
-                                        name="password"
-                                />
-                                <div>
+                                <p>Welcome to Vertex.AI</p>
+                                <div className="Input-Area">
+                                        <label for="name">Your Name:</label>
                                         <input
-                                                type="submit"
-                                                value="Create Account" //the harder you work the more luck you seem to have
+                                                placeholder="Name"
+                                                type="text"
+                                                id="name"
+                                                name="name"
+                                        />
+                                        <label for="email">Your Email:</label>
+                                        <input
+                                                placeholder="Email"
+                                                type="text"
+                                                id="email"
+                                                name="email"
+                                        />
+                                        <label for="password">
+                                                Choose Your Password:
+                                        </label>
+                                        <input
+                                                placeholder="Password"
+                                                type="password"
+                                                id="password"
+                                                name="password"
                                         />
                                 </div>
+
+                                <button class="Submit-Button">
+                                        Create Account
+                                </button>
                         </form>
                 </div>
         );
