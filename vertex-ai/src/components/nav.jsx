@@ -34,7 +34,7 @@ export default function Nav() {
                                 <li>
                                         <a
                                                 className="Signin-button"
-                                                href="/signin"
+                                                href="/signorlog"
                                         >
                                                 <FontAwesomeIcon
                                                         icon={faUser}

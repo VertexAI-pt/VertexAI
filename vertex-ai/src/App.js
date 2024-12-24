@@ -3,6 +3,7 @@ import Home from "./pages/home";
 import Chat from "./pages/chat";
 import Signin from "./pages/signin";
 import Error404 from "./pages/error404";
+import Signorlog from "./pages/signorlog";
 
 export default function App() {
         return (
@@ -28,6 +29,11 @@ export default function App() {
                                         <Route
                                                 path="/signin"
                                                 element={<Signin />}
+                                        />
+
+                                        <Route
+                                                path="/signorlog"
+                                                element={<Signorlog />}
                                         />
                                 </Routes>
                         </BrowserRouter>

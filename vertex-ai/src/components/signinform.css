@@ -55,13 +55,14 @@ input {
         border: none;
         outline: none;
         transition: 0.4s ease-in-out;
-        background-color: #252525;
         color: white;
+
         margin-top: 1em;
-        width: 190px;
+        width: 150px;
+        background-color: hsl(0, 0%, 9%);
+        box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
 }
 
 .Submit-Button:hover {
         background-color: #111111;
-        color: white;
 }
