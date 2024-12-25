@@ -1,15 +1,14 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-const User = require("../vertex-ai/src/components/signinform.jsx");
+const User = require("./userModel");
+
+require('dotenv').config()
 
 const app = express();
 app.use(express.json());
 
-mongoose.connect(
-        "mongodb+srv://luissmartinss:LlUuIiSs212526@vertexai.pnavd.mongodb.net/?retryWrites=true&w=majority&appName=vertexai",
-        { userNewUrlParser: true, useUniFiedTopology: true },
-);
+mongoose.connect(process.env.MONGODB_URI);
 
 app.post("/signin", async (req, res) => {
         const { username, email, password } = req.body;
