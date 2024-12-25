@@ -32,6 +32,20 @@ app.post("/signin", async (req, res) => {
         });
 });
 
+app.post("/signup", async(req, res) => {
+        const {email, password} = req.body;
+        const existingUser = await User.findOne({email});
+        if(!existingUser){
+            return res.status(400).json({message: "User account doesn't exists..."})    
+        } else {
+                const isMatch = await bcrypt.compare(password, existingUser.password);
+                if(!isMatch){
+                    return res.status(400).json({message: "Invalid credentials..."})
+                }
+                res.json({message: "Logged in successfully!"})
+        }
+})
+
 app.listen(5000, () => {
         console.log("Server Running On 5000");
 });
