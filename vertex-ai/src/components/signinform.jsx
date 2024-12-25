@@ -1,6 +1,8 @@
 import "./signinform.css";
 import {useState} from 'react'
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+
 
 //Back-End
 /*const form = document.getElementById("Signin-Form");
@@ -21,6 +23,8 @@ export default function SigninForm() {
                 password: ""
         });
         const [message, setMessage] = useState("");
+        const navigate = useNavigate();
+
         const handleChange = (e) => {
                 const { name, value } = e.target;
                 setFormData({ ...formData, [name]: value });
@@ -30,7 +34,7 @@ export default function SigninForm() {
                 e.preventDefault();
                 try {
                     const response = await axios.post("/signin", formData); 
-                    setMessage(response.data.message);
+                    navigate("/home");
                 } catch (error) {
                     if (error.response) {
                         setMessage(error.response.data.message);
