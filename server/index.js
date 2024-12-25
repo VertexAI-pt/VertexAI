@@ -12,7 +12,7 @@ mongoose.connect(
 );
 
 app.post("/signin", async (req, res) => {
-        const { usename, email, password } = req.body;
+        const { username, email, password } = req.body;
 
         const existingUser = await User.findOne({ username });
         if (existingUser) {
