@@ -1,18 +1,20 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-const User = require("../vertex-ai/src/components/signinform.jsx");
+const User = require("./userModel");
+const cors = require("cors");
+
+require('dotenv').config()
 
 const app = express();
+
+app.use(cors());
 app.use(express.json());
 
-mongoose.connect(
-        "mongodb+srv://luissmartinss:LlUuIiSs212526@vertexai.pnavd.mongodb.net/?retryWrites=true&w=majority&appName=vertexai",
-        { userNewUrlParser: true, useUniFiedTopology: true },
-);
+mongoose.connect(process.env.MONGODB_URI);
 
 app.post("/signin", async (req, res) => {
-        const { usename, email, password } = req.body;
+        const { username, email, password } = req.body;
 
         const existingUser = await User.findOne({ username });
         if (existingUser) {
@@ -30,6 +32,6 @@ app.post("/signin", async (req, res) => {
         });
 });
 
-app.listen(3000, () => {
-        console.log("Server Running On 3000");
+app.listen(5000, () => {
+        console.log("Server Running On 5000");
 });
