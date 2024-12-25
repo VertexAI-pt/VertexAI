@@ -10,7 +10,6 @@ export default function Signorlog() {
                                         <a
                                                 className="SignIn-Button"
                                                 href="/signin"
-                                                target="_blank"
                                         >
                                                 Create an Account
                                         </a>
@@ -18,8 +17,7 @@ export default function Signorlog() {
                                 <div className="Log-In">
                                         <a
                                                 className="LogIn-Button"
-                                                href="/eror404"
-                                                target="_blank"
+                                                href="/signup"
                                         >
                                                 Log-In
                                         </a>
