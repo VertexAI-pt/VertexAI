@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const User = require("./userModel");
 const cors = require("cors");
 
-require('dotenv').config()
+require("dotenv").config();
 
 const app = express();
 
@@ -32,6 +32,6 @@ app.post("/signin", async (req, res) => {
         });
 });
 
-app.listen(5000, () => {
-        console.log("Server Running On 5000");
+app.listen(8000, () => {
+        console.log("Server Running On 8000");
 });
