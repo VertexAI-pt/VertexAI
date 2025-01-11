@@ -9,6 +9,10 @@ require("dotenv").config();
 
 const app = express();
 
+const openai = new OpenAI({
+        apiKey: process.env.OPENAI_API_KEY,
+})
+
 app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
@@ -81,6 +85,20 @@ app.get("/auth/check", (req, res) => {
 
         res.json({ username });
 });
+
+app.post('/openai', async (req, res) => {
+        const completion = await openai.chat.completions.create({
+            model: "gpt-4o-mini",
+            messages: [
+                { role: "system", content: "You are a helpful assistant." },
+                {
+                    role: "user",
+                    content: req.body.input,
+                },
+            ],
+        });
+        res.json(completion.choices[0].message)
+    })
 
 app.listen(8000, () => {
         console.log("Server Running On 8000");
