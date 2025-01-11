@@ -1,68 +1,79 @@
-.Signin-Form {
+.Signin-Container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        color: white;
+        background-color: #000;
+        color: #fff;
 }
 
-.Signin-Form form {
-        border-width: 10px;
-        gap: 10px;
-        padding-left: 5em;
-        padding-right: 5em;
-        padding-bottom: 6em;
-        background-color: #171717;
-        border-radius: 25px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
-        background-color: hsl(0, 0%, 9%);
-}
-
-.Signin-Form p {
-        font-size: 30px;
-}
-
-.Input-Area {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 0.5em;
-        border-radius: 25px;
-        padding: 3em;
-        color: white;
-        background-color: hsl(0, 0%, 9%);
-        box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
-}
-
-input {
-        border: none;
-        outline: none;
+.Signin-Card {
+        background-color: #111;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         width: 100%;
-        color: black;
-        border-radius: 3px;
+        max-width: 400px;
+}
+
+.Signin-Title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+}
+
+.Signin-Description {
+        font-size: 0.875rem;
+        color: #888;
+        margin-bottom: 1.5rem;
+}
+
+.Form-Group {
+        margin-bottom: 1rem;
+}
+
+.Form-Group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-size: 0.875rem;
+}
+
+.Form-Group input {
+        width: 95.5%;
+        padding: 0.5rem;
+        font-size: 1rem;
+        background-color: #222;
+        border: 1px solid #333;
+        border-radius: 4px;
+        color: #fff;
+}
+
+.Form-Group input::placeholder {
+        color: #666;
 }
 
 .Submit-Button {
-        align-items: end;
-        padding: 0.5em;
-        border-radius: 10px;
+        width: 100%;
+        padding: 0.75rem;
+        font-size: 1rem;
+        font-weight: bold;
+        background-color: #333;
+        color: #fff;
         border: none;
-        outline: none;
-        transition: 0.4s ease-in-out;
-        color: white;
-
-        margin-top: 1em;
-        width: 150px;
-        background-color: hsl(0, 0%, 9%);
-        box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.5s ease;
 }
 
 .Submit-Button:hover {
-        background-color: #111111;
+        background-color: #444;
+}
+
+.Error-Message {
+        margin-top: 1rem;
+        padding: 0.75rem;
+        background-color: #ff4444;
+        color: #fff;
+        border-radius: 4px;
+        font-size: 0.875rem;
 }
