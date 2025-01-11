@@ -1,15 +1,19 @@
-import "./chat.css";
-import Nav from "../components/nav";
-import Footer from "../components/footer";
-
+import "../styles/pages/chat.css";
 export default function Chat() {
         return (
-                <div className="App">
-                        <Nav />
-                        <div className="Chat-Section">
-                                <h1>Chat Coming Soon...</h1>
+                <div className="Chat-Page">
+                        <div className="Chat-Header">
+                                <h1>Welcome To VEX</h1>
                         </div>
-                        <Footer />
+                        <div className="Chat-Body"></div>
+                        <div className="Chat-Footer">
+                                <input
+                                        type="text"
+                                        placeholder="Type your message..."
+                                        onChange={(e) => e.target.value}
+                                />
+                                <button>Send</button>
+                        </div>
                 </div>
         );
 }

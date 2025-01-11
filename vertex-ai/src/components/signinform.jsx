@@ -1,21 +1,10 @@
-import "./signinform.css";
+import "../styles/components/signinform.css";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-//Back-End
-/*const form = document.getElementById("Signin-Form");
-form.addEventListener("submit", registerUser);
-
-function registerUser(event) {
-        event.preventDefault();
-        const username = document.getElementById("username");
-        const email = document.getElementById("email");
-        const password = document.getElementById("password");
-        }*/
-
-//Front-End
 export default function SigninForm() {
+        //BACK-END
         const [formData, setFormData] = useState({
                 username: "",
                 email: "",
@@ -44,6 +33,7 @@ export default function SigninForm() {
         };
 
         return (
+                //FRONT-END
                 <div className="Signin-Container">
                         <div className="Signin-Card">
                                 <h1 className="Signin-Title">Join VertexAI!</h1>

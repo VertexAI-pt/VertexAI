@@ -1,4 +1,4 @@
-import "./nav.css";
+import "../styles/components/nav.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
@@ -8,13 +8,13 @@ export default function Nav() {
         const [username, setUsername] = useState(null);
 
         useEffect(() => {
-            axios.get("/auth/check", { withCredentials: true })
-                .then((response) => {
-                    setUsername(response.data.username);
-                })
-                .catch(() => {
-                    setUsername(null);
-                });
+                axios.get("/auth/check", { withCredentials: true })
+                        .then((response) => {
+                                setUsername(response.data.username);
+                        })
+                        .catch(() => {
+                                setUsername(null);
+                        });
         }, []);
         return (
                 <nav className="App-nav">
@@ -50,18 +50,21 @@ export default function Nav() {
                                                 href="/signorlog"
                                         >
                                                 {username ? (
-                                                        <li className="App-item3">Welcome, {username}!</li>
+                                                        <li className="App-item3">
+                                                                Welcome,{" "}
+                                                                {username}!
+                                                        </li>
                                                 ) : (
-                                                <FontAwesomeIcon
-                                                        icon={faUser}
-                                                        bounce
-                                                        href="/signin"
-                                                        size="lg"
-                                                        style={{
-                                                                color: "#ffffff",
-                                                        }}
-                                                />
-                                        )}
+                                                        <FontAwesomeIcon
+                                                                icon={faUser}
+                                                                bounce
+                                                                href="/signin"
+                                                                size="lg"
+                                                                style={{
+                                                                        color: "#ffffff",
+                                                                }}
+                                                        />
+                                                )}
                                         </a>
                                 </li>
                         </ul>

@@ -1,4 +1,4 @@
-import "./footer.css";
+import "../styles/components/footer.css";
 
 export default function Footer() {
         return (
@@ -43,7 +43,7 @@ export default function Footer() {
                                                         className="App-item8"
                                                         href="/about"
                                                 >
-                                                        About Us
+                                                        Our Team
                                                 </a>
                                         </li>
 

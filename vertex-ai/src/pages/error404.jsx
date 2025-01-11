@@ -1,4 +1,4 @@
-import "./error404.css";
+import "../styles/pages/error404.css";
 
 export default function Error404() {
         return (
