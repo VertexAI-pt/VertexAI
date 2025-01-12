@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const User = require("./userModel");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+const OpenAI = require("openai")
 
 require("dotenv").config();
 
