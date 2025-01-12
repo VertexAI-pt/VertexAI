@@ -5,6 +5,7 @@ const User = require("./userModel");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const OpenAI = require("openai")
+const rateLimit = require('express-rate-limit');
 
 require("dotenv").config();
 
@@ -17,8 +18,23 @@ const openai = new OpenAI({
 app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
+app.set('trust proxy', true);
 
 mongoose.connect(process.env.MONGODB_URI);
+
+const requestLimiter = rateLimit({
+        windowMs: 60 * 1000, // Janela de 1 minuto
+        max: 10, // Limite de 10 requisições
+        keyGenerator: (req) => {
+            console.log('IP detectado:', req.ip);
+            return req.ip;
+        },
+        handler: (req, res) => {
+            console.log('Limite atingido para IP:', req.ip);
+            res.status(429).json({ error: 'Atingiu o limite de requisições.' });
+        },
+        message: { error: 'Atingiu o limite de requisições.' },
+});
 
 app.post("/signin", async (req, res) => {
         const { username, email, password } = req.body;
@@ -87,19 +103,26 @@ app.get("/auth/check", (req, res) => {
         res.json({ username });
 });
 
-app.post('/openai', async (req, res) => {
-        const completion = await openai.chat.completions.create({
-            model: "gpt-4o-mini",
-            messages: [
-                { role: "system", content: "You are a helpful assistant." },
-                {
-                    role: "user",
-                    content: req.body.input,
-                },
-            ],
-        });
-        res.json(completion.choices[0].message)
-    })
+app.post('/openai', requestLimiter, async (req, res) => {
+        try {
+            const completion = await openai.chat.completions.create({
+                model: "gpt-4o-mini",
+                messages: [
+                    { role: "system", content: "You are a helpful assistant." },
+                    {
+                        role: "user",
+                        content: req.body.input,
+                    },
+                ],
+            });
+    
+            res.json(completion.choices[0].message);
+        } catch (error) {
+            console.error('Erro ao gerar resposta:', error.message);
+            res.status(500).json({ error: 'Erro ao processar sua solicitação.' });
+        }
+    });
+    
 
 app.listen(8000, () => {
         console.log("Server Running On 8000");
