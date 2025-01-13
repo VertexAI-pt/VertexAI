@@ -6,6 +6,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const OpenAI = require("openai")
 const rateLimit = require('express-rate-limit');
+const ChatHistory = require("./models/ChatHistory");
 
 require("dotenv").config();
 
@@ -15,7 +16,10 @@ const openai = new OpenAI({
         apiKey: process.env.OPENAI_API_KEY,
 })
 
-app.use(cors());
+app.use(cors({
+        origin: "http://localhost:3000",
+        credentials: true,
+    }));
 app.use(cookieParser());
 app.use(express.json());
 app.set('trust proxy', true);
@@ -104,24 +108,57 @@ app.get("/auth/check", (req, res) => {
 });
 
 app.post('/openai', requestLimiter, async (req, res) => {
+        const { username } = req.cookies;
+        const { input } = req.body;
+
+        if (!username) {
+                return res.status(401).json({ error: "Utilizador não autenticado" });
+        }
+
         try {
-            const completion = await openai.chat.completions.create({
-                model: "gpt-4o-mini",
-                messages: [
-                    { role: "system", content: "You are a helpful assistant." },
-                    {
-                        role: "user",
-                        content: req.body.input,
-                    },
-                ],
-            });
+                let chatHistory = await ChatHistory.findOne({ username });
+                if (!chatHistory) {
+                chatHistory = new ChatHistory({ username, messages: [] });
+                }
+
+                 const userMessage = { role: "user", content: input };
+                chatHistory.messages.push(userMessage);
+
+                const completion = await openai.chat.completions.create({
+                        model: "gpt-4o-mini",
+                        messages: [
+                            { role: "system", content: "Your name is VEX. You are a helpful programming assistant." },
+                            ...chatHistory.messages,
+                        ],
+                    });
+
+                    const assistantMessage = completion.choices[0].message;
+                    chatHistory.messages.push(assistantMessage);
+                    await chatHistory.save();
     
-            res.json(completion.choices[0].message);
+                    res.json({ message: assistantMessage, history: chatHistory.messages });
         } catch (error) {
             console.error('Erro ao gerar resposta:', error.message);
             res.status(500).json({ error: 'Erro ao processar sua solicitação.' });
         }
     });
+
+app.get('/openai/history', async (req, res) => {
+        const { username } = req.cookies;
+    
+        if (!username) {
+            return res.status(401).json({ error: "Usuário não autenticado" });
+        }
+    
+        try {
+            const chatHistory = await ChatHistory.findOne({ username });
+            res.json({ history: chatHistory ? chatHistory.messages : [] });
+        } catch (error) {
+            console.error('Erro ao carregar histórico:', error.message);
+            res.status(500).json({ error: 'Erro ao carregar histórico.' });
+        }
+    });
+    
     
 
 app.listen(8000, () => {
