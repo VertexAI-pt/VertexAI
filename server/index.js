@@ -4,8 +4,8 @@ const bcrypt = require("bcrypt");
 const User = require("./userModel");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
-const OpenAI = require("openai")
-const rateLimit = require('express-rate-limit');
+const OpenAI = require("openai");
+const rateLimit = require("express-rate-limit");
 const ChatHistory = require("./models/ChatHistory");
 
 require("dotenv").config();
@@ -14,30 +14,34 @@ const app = express();
 
 const openai = new OpenAI({
         apiKey: process.env.OPENAI_API_KEY,
-})
+});
 
-app.use(cors({
-        origin: "http://localhost:3000",
-        credentials: true,
-    }));
+app.use(
+        cors({
+                origin: "http://localhost:3000",
+                credentials: true,
+        }),
+);
 app.use(cookieParser());
 app.use(express.json());
-app.set('trust proxy', true);
+app.set("trust proxy", true);
 
 mongoose.connect(process.env.MONGODB_URI);
 
 const requestLimiter = rateLimit({
-        windowMs: 60 * 1000, // Janela de 1 minuto
-        max: 10, // Limite de 10 requisições
+        windowMs: 60 * 1000,
+        max: 10,
         keyGenerator: (req) => {
-            console.log('IP detectado:', req.ip);
-            return req.ip;
+                console.log("IP detectado:", req.ip);
+                return req.ip;
         },
         handler: (req, res) => {
-            console.log('Limite atingido para IP:', req.ip);
-            res.status(429).json({ error: 'Atingiu o limite de requisições.' });
+                console.log("Limite atingido para IP:", req.ip);
+                res.status(429).json({
+                        error: "Atingiu o limite de requisições.",
+                });
         },
-        message: { error: 'Atingiu o limite de requisições.' },
+        message: { error: "Atingiu o limite de requisições." },
 });
 
 app.post("/signin", async (req, res) => {
@@ -107,59 +111,72 @@ app.get("/auth/check", (req, res) => {
         res.json({ username });
 });
 
-app.post('/openai', requestLimiter, async (req, res) => {
+app.post("/openai", requestLimiter, async (req, res) => {
         const { username } = req.cookies;
         const { input } = req.body;
 
         if (!username) {
-                return res.status(401).json({ error: "Utilizador não autenticado" });
+                return res
+                        .status(401)
+                        .json({ error: "Utilizador não autenticado" });
         }
 
         try {
                 let chatHistory = await ChatHistory.findOne({ username });
                 if (!chatHistory) {
-                chatHistory = new ChatHistory({ username, messages: [] });
+                        chatHistory = new ChatHistory({
+                                username,
+                                messages: [],
+                        });
                 }
 
-                 const userMessage = { role: "user", content: input };
+                const userMessage = { role: "user", content: input };
                 chatHistory.messages.push(userMessage);
 
                 const completion = await openai.chat.completions.create({
                         model: "gpt-4o-mini",
                         messages: [
-                            { role: "system", content: "Your name is VEX. You are a helpful programming assistant." },
-                            ...chatHistory.messages,
+                                {
+                                        role: "system",
+                                        content: "Your name is VEX. You are a helpful programming assistant.",
+                                },
+                                ...chatHistory.messages,
                         ],
-                    });
+                });
 
-                    const assistantMessage = completion.choices[0].message;
-                    chatHistory.messages.push(assistantMessage);
-                    await chatHistory.save();
-    
-                    res.json({ message: assistantMessage, history: chatHistory.messages });
+                const assistantMessage = completion.choices[0].message;
+                chatHistory.messages.push(assistantMessage);
+                await chatHistory.save();
+
+                res.json({
+                        message: assistantMessage,
+                        history: chatHistory.messages,
+                });
         } catch (error) {
-            console.error('Erro ao gerar resposta:', error.message);
-            res.status(500).json({ error: 'Erro ao processar sua solicitação.' });
+                console.error("Erro ao gerar resposta:", error.message);
+                res.status(500).json({
+                        error: "Erro ao processar sua solicitação.",
+                });
         }
-    });
+});
 
-app.get('/openai/history', async (req, res) => {
+app.get("/openai/history", async (req, res) => {
         const { username } = req.cookies;
-    
+
         if (!username) {
-            return res.status(401).json({ error: "Usuário não autenticado" });
+                return res
+                        .status(401)
+                        .json({ error: "Usuário não autenticado" });
         }
-    
+
         try {
-            const chatHistory = await ChatHistory.findOne({ username });
-            res.json({ history: chatHistory ? chatHistory.messages : [] });
+                const chatHistory = await ChatHistory.findOne({ username });
+                res.json({ history: chatHistory ? chatHistory.messages : [] });
         } catch (error) {
-            console.error('Erro ao carregar histórico:', error.message);
-            res.status(500).json({ error: 'Erro ao carregar histórico.' });
+                console.error("Erro ao carregar histórico:", error.message);
+                res.status(500).json({ error: "Erro ao carregar histórico." });
         }
-    });
-    
-    
+});
 
 app.listen(8000, () => {
         console.log("Server Running On 8000");
