@@ -1,0 +1,86 @@
+.Chat-Page {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+}
+
+.Chat-Header {
+        color: black;
+        padding: 1rem;
+        text-align: center;
+}
+
+.Chat-Body {
+        flex: 1;
+        padding: 1rem;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+}
+
+.Chat-Message {
+        max-width: 70%;
+        padding: 0.8rem;
+        border-radius: 0.5rem;
+        line-height: 1.5;
+        word-wrap: break-word;
+}
+
+.Code-Message {
+        background-color: #1e1e1e;
+        color: #ffffff;
+        font-family: "Courier New", Courier, monospace;
+        padding: 0.8rem;
+        border-radius: 5px;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        line-height: 1.5;
+}
+.User-Message {
+        align-self: flex-end;
+        background-color: #007bff;
+        color: white;
+        padding: 0.8rem;
+        border-radius: 10px;
+        max-width: 70%;
+}
+.Assistant-Message {
+        align-self: flex-start;
+        background-color: #f1f1f1;
+        color: black;
+        padding: 0.8rem;
+        border-radius: 10px;
+        max-width: 70%;
+}
+
+.Chat-Footer {
+        display: flex;
+        padding: 1rem;
+        border-top: 1px solid #ccc;
+}
+
+.Chat-Footer input {
+        flex: 1;
+        padding: 0.8rem;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 0.5rem;
+        margin-right: 0.5rem;
+}
+
+.Chat-Footer button {
+        padding: 0.8rem 1rem;
+        font-size: 1rem;
+        background-color: black;
+        color: white;
+        border: none;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: 0.5s ease-in-out;
+}
+
+.Chat-Footer button:hover {
+        background-color: #333;
+}
