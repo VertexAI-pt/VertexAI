@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Markdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { coy } from "react-syntax-highlighter/dist/esm/styles/prism";
+import "font-awesome/css/font-awesome.min.css";
 
 export default function Chat() {
         const [input, setInput] = useState("");
@@ -64,9 +65,10 @@ export default function Chat() {
                 <div className="Chat-Page">
                         <div className="Chat-Header">
                                 <h1>Welcome To VEX</h1>
-                                <button className="Exit-Button">
-                                        <a href="/">Exit</a>
-                                </button>
+
+                                <a href="/" className="Exit-Button">
+                                        &#8592; Exit
+                                </a>
                         </div>
                         <div className="Chat-Body">
                                 {chatHistory.map((msg, index) => (
@@ -145,7 +147,9 @@ export default function Chat() {
                                                 setInput(e.target.value)
                                         }
                                 />
-                                <button onClick={sendMessage}>Send</button>
+                                <button onClick={sendMessage}>
+                                        <i className="fa fa-paper-plane"></i>
+                                </button>
                         </div>
                 </div>
         );
