@@ -138,7 +138,7 @@ app.post("/openai", requestLimiter, async (req, res) => {
                         messages: [
                                 {
                                         role: "system",
-                                        content: "Your name is VEX. You are a helpful programming assistant.",
+                                        content: "Your name is VEX. You are an expert in software development, ready to assist with programming, solve technical problems, and provide clear and detailed explanations.",
                                 },
                                 ...chatHistory.messages,
                         ],
