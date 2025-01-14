@@ -4,12 +4,21 @@ import Markdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { coy } from "react-syntax-highlighter/dist/esm/styles/prism";
 import "font-awesome/css/font-awesome.min.css";
+import axios from "axios";
 
 export default function Chat() {
+        const [username, setUsername] = useState(null);
         const [input, setInput] = useState("");
         const [chatHistory, setChatHistory] = useState([]);
 
         useEffect(() => {
+                axios.get("/auth/check", { withCredentials: true })
+                        .then((response) => {
+                                setUsername(response.data.username);
+                        })
+                        .catch(() => {
+                                setUsername(null);
+                        });
                 const fetchHistory = async () => {
                         try {
                                 const response = await fetch(
@@ -70,87 +79,76 @@ export default function Chat() {
                                         &#8592; Exit
                                 </a>
                         </div>
+                        
                         <div className="Chat-Body">
-                                {chatHistory.map((msg, index) => (
-                                        <div
-                                                key={index}
-                                                className={
-                                                        msg.role === "user"
-                                                                ? "User-Message"
-                                                                : "Assistant-Message"
-                                                }
-                                        >
-                                                {msg.role !== "user" && (
-                                                        <img
-                                                                src="../public/img/Vertexailogo.png"
-                                                                alt="Assistant"
-                                                                className="Assistant-Avatar"
-                                                        />
-                                                )}
-                                                <Markdown
-                                                        children={msg.content}
-                                                        components={{
-                                                                code({
-                                                                        node,
-                                                                        inline,
-                                                                        className,
-                                                                        children,
-                                                                        ...props
-                                                                }) {
-                                                                        // Detecta a linguagem para a sintaxe (exemplo: js, html, etc.)
-                                                                        const match =
-                                                                                /language-(\w+)/.exec(
-                                                                                        className ||
-                                                                                                "",
-                                                                                );
-                                                                        return match ? (
-                                                                                <SyntaxHighlighter
-                                                                                        style={
-                                                                                                coy
-                                                                                        }
-                                                                                        language={
-                                                                                                match[1]
-                                                                                        }
-                                                                                        PreTag="div"
-                                                                                        children={String(
-                                                                                                children,
-                                                                                        ).replace(
-                                                                                                /\n$/,
-                                                                                                "",
-                                                                                        )}
-                                                                                        {...props}
-                                                                                />
-                                                                        ) : (
-                                                                                <code
-                                                                                        className={
-                                                                                                className
-                                                                                        }
-                                                                                        {...props}
-                                                                                >
-                                                                                        {
-                                                                                                children
-                                                                                        }
-                                                                                </code>
-                                                                        );
-                                                                },
-                                                        }}
-                                                />
-                                        </div>
-                                ))}
+                        {username ? (
+                chatHistory.map((msg, index) => (
+                    <div
+                        key={index}
+                        className={
+                            msg.role === "user" ? "User-Message" : "Assistant-Message"
+                        }
+                    >
+                        {msg.role !== "user" && (
+                            <img
+                                src="../public/img/Vertexailogo.png"
+                                alt="Assistant"
+                                className="Assistant-Avatar"
+                            />
+                        )}
+                        <Markdown
+                            children={msg.content}
+                            components={{
+                                code({
+                                    node,
+                                    inline,
+                                    className,
+                                    children,
+                                    ...props
+                                }) {
+                                    const match = /language-(\w+)/.exec(className || "");
+                                    return match ? (
+                                        <SyntaxHighlighter
+                                            style={coy}
+                                            language={match[1]}
+                                            PreTag="div"
+                                            children={String(children).replace(/\n$/, "")}
+                                            {...props}
+                                        />
+                                    ) : (
+                                        <code className={className} {...props}>
+                                            {children}
+                                        </code>
+                                    );
+                                },
+                            }}
+                        />
+                    </div>
+                ))
+            ) : (
+                <p className="No-Username-Message">
+                    Please log in to access the chat.
+                </p>
+            )}
                         </div>
                         <div className="Chat-Footer">
-                                <input
-                                        type="text"
-                                        placeholder="Talk to VEX"
-                                        value={input}
-                                        onChange={(e) =>
-                                                setInput(e.target.value)
-                                        }
-                                />
-                                <button onClick={sendMessage}>
-                                        <i className="fa fa-paper-plane"></i>
-                                </button>
-                        </div>
+            <input
+                type="text"
+                placeholder={username ? "Talk to VEX" : "Login to use the chat"}
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                disabled={!username}
+            />
+            {username ? (
+                <button onClick={sendMessage}>
+                    <i className="fa fa-paper-plane"></i>
+                </button>
+            ) : (
+                <button onClick={() => window.location.href = "/signorlog"}>
+                    Login
+                </button>
+            )}
+        </div>
                 </div>
         );
 }
