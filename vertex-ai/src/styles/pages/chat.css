@@ -25,7 +25,6 @@
 }
 
 .Chat-Header .Exit-Button:hover {
-        background-color: grey;
         background-color: #333;
 }
 
@@ -83,8 +82,8 @@
 }
 
 .Assistant-Avatar {
-        width: 10px;
-        height: 10px;
+        width: 40px;
+        height: 40px;
         border-radius: 50%;
         margin-right: 10px;
         object-fit: cover;
@@ -117,5 +116,75 @@
 }
 
 .Chat-Footer button:hover {
+        background-color: #333;
+}
+
+.Login-SignIn-Form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        background-color: #f9f9f9;
+        padding: 2rem;
+}
+
+.Form-Container {
+        display: flex;
+        width: 80%;
+        max-width: 1000px;
+        background: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        overflow: hidden;
+}
+
+.Login-Side,
+.SignIn-Side {
+        flex: 1;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-right: 1px solid #ccc;
+}
+
+.SignIn-Side {
+        border-right: none;
+}
+
+.Form-Group {
+        margin-bottom: 1.5rem;
+        width: 100%;
+}
+
+.Form-Group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-size: 1rem;
+        color: #333;
+}
+
+.Form-Group input {
+        width: 100%;
+        padding: 0.8rem;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+}
+
+.Form-Button {
+        width: 100%;
+        padding: 0.8rem;
+        font-size: 1rem;
+        background-color: black;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s ease;
+}
+
+.Form-Button:hover {
         background-color: #333;
 }
