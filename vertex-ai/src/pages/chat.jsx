@@ -5,12 +5,38 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { coy } from "react-syntax-highlighter/dist/esm/styles/prism";
 import "font-awesome/css/font-awesome.min.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Chat() {
         const [username, setUsername] = useState(null);
         const [input, setInput] = useState("");
         const [chatHistory, setChatHistory] = useState([]);
+        const [message, setMessage] = useState("");
+        const navigate = useNavigate();
+        const [formData, setFormData] = useState({
+                email: "",
+                password: "",
+        });
 
+        const [formDataSignup, setFormDataSignup] = useState({
+                username: "",
+                email: "",
+                password: "",
+        });
+        
+        const handleChange = (e) => {
+                const { name, value } = e.target;
+                setFormData({ ...formData, [name]: value });
+        };
+
+        const handleChangeCriar = (e) => {
+                const { name, value } = e.target;
+                setFormDataSignup({ ...formDataSignup, [name]: value });
+        }; 
+
+
+        
+        
         useEffect(() => {
                 axios.get("/auth/check", { withCredentials: true })
                         .then((response) => {
@@ -68,6 +94,34 @@ export default function Chat() {
                         }
                 } catch (error) {
                         console.error("Erro ao conectar ao servidor:", error);
+                }
+        };
+
+        const handleSubmitLogin = async (e) => {
+                e.preventDefault();
+                try {
+                        const response = await axios.post("/signup", formData);
+                        navigate("/chat");
+                } catch (error) {
+                        if (error.response) {
+                                setMessage(error.response.data.message);
+                        } else {
+                                setMessage("Alguma cena aconteceu malee :(");
+                        }
+                }
+        };
+
+        const handleSubmitCriar = async (e) => {
+                e.preventDefault();
+                try {
+                        const response = await axios.post("/signin", formDataSignup);
+                        navigate("/chat");
+                } catch (error) {
+                        if (error.response) {
+                                setMessage(error.response.data.message);
+                        } else {
+                                setMessage("Algum Erro Ocurreu :(");
+                        }
                 }
         };
 
@@ -157,28 +211,31 @@ export default function Chat() {
                                                         <div className="Login-Side">
                                                                 <h2>Login</h2>
                                                                 <form
-                                                                        action="/login"
-                                                                        method="POST"
+                                                                        onSubmit={handleSubmitLogin}
                                                                 >
                                                                         <div className="Form-Group">
-                                                                                <label htmlFor="login-email">
+                                                                                <label htmlFor="email">
                                                                                         Email:
                                                                                 </label>
                                                                                 <input
                                                                                         type="email"
-                                                                                        id="login-email"
+                                                                                        id="email"
                                                                                         name="email"
+                                                                                        value={formData.email}
+                                                                                        onChange={handleChange}
                                                                                         required
                                                                                 />
                                                                         </div>
                                                                         <div className="Form-Group">
-                                                                                <label htmlFor="login-password">
+                                                                                <label htmlFor="password">
                                                                                         Password:
                                                                                 </label>
                                                                                 <input
                                                                                         type="password"
-                                                                                        id="login-password"
+                                                                                        id="password"
                                                                                         name="password"
+                                                                                        value={formData.password}
+                                                                                        onChange={handleChange}
                                                                                         required
                                                                                 />
                                                                         </div>
@@ -193,39 +250,46 @@ export default function Chat() {
                                                         <div className="SignIn-Side">
                                                                 <h2>Sign Up</h2>
                                                                 <form
-                                                                        action="/signup"
-                                                                        method="POST"
+                                                                        onSubmit={handleSubmitCriar}
                                                                 >
                                                                         <div className="Form-Group">
-                                                                                <label htmlFor="signup-name">
+                                                                                <label htmlFor="name">
                                                                                         Name:
                                                                                 </label>
                                                                                 <input
                                                                                         type="text"
-                                                                                        id="signup-name"
-                                                                                        name="name"
+                                                                                        id="name"
+                                                                                        name="username"
+                                                                                        value={
+                                                                                                formDataSignup.username
+                                                                                        }
+                                                                                        onChange={handleChangeCriar}
                                                                                         required
                                                                                 />
                                                                         </div>
                                                                         <div className="Form-Group">
-                                                                                <label htmlFor="signup-email">
+                                                                                <label htmlFor="email">
                                                                                         Email:
                                                                                 </label>
                                                                                 <input
                                                                                         type="email"
-                                                                                        id="signup-email"
+                                                                                        id="email"
                                                                                         name="email"
+                                                                                        value={formDataSignup.email}
+                                                                                        onChange={handleChangeCriar}
                                                                                         required
                                                                                 />
                                                                         </div>
                                                                         <div className="Form-Group">
-                                                                                <label htmlFor="signup-password">
+                                                                                <label htmlFor="password">
                                                                                         Password:
                                                                                 </label>
                                                                                 <input
                                                                                         type="password"
-                                                                                        id="signup-password"
+                                                                                        id="password"
                                                                                         name="password"
+                                                                                        value={formDataSignup.password}
+                                                                                        onChange={handleChangeCriar}
                                                                                         required
                                                                                 />
                                                                         </div>
