@@ -57,7 +57,7 @@ app.post("/signin", async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = new User({ username, email, password: hashedPassword });
         await newUser.save();
-
+       
         res.cookie("username", newUser.username, {
                 httpOnly: true,
                 secure: false,
@@ -67,6 +67,7 @@ app.post("/signin", async (req, res) => {
         res.status(201).json({
                 message: "Congratulations! Your Account Was Created!",
         });
+        console.log(req.cookies)
 });
 
 app.post("/signup", async (req, res) => {
@@ -93,6 +94,7 @@ app.post("/signup", async (req, res) => {
                         sameSite: "lax",
                 });
                 res.json({ message: "Logged in successfully!" });
+                console.log(req.cookies)
         }
 });
 

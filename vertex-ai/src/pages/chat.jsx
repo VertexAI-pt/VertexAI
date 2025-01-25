@@ -39,35 +39,32 @@ export default function Chat() {
         
         useEffect(() => {
                 axios.get("/auth/check", { withCredentials: true })
-                        .then((response) => {
-                                setUsername(response.data.username);
-                        })
-                        .catch(() => {
-                                setUsername(null);
-                        });
-
+                    .then((response) => {
+                        setUsername(response.data.username);
+                    })
+                    .catch(() => {
+                        setUsername(null);
+                    });
+            
                 const fetchHistory = async () => {
-                        try {
-                                const response = await fetch(
-                                        "http://localhost:8000/openai/history",
-                                        {
-                                                credentials: "include",
-                                        },
-                                );
-                                if (response.ok) {
-                                        const data = await response.json();
-                                        setChatHistory(data.history || []);
-                                }
-                        } catch (error) {
-                                console.error(
-                                        "Erro ao carregar histórico:",
-                                        error,
-                                );
+                    try {
+                        const response = await fetch(
+                            "http://localhost:8000/openai/history",
+                            {
+                                credentials: "include",
+                            }
+                        );
+                        if (response.ok) {
+                            const data = await response.json();
+                            setChatHistory(data.history || []);
                         }
+                    } catch (error) {
+                        console.error("Erro ao carregar histórico:", error);
+                    }
                 };
                 fetchHistory();
-        }, []);
-
+            }, []); // Use a dependência vazia para rodar isso uma vez quando o componente for montado
+            
         const sendMessage = async () => {
                 if (!input.trim()) return;
 
@@ -121,10 +118,17 @@ export default function Chat() {
                     // Envia os dados de criação de conta
                     const response = await axios.post("/signin", formDataSignup);
                     
-                    if (response.status === 200) {
+                    if (response.status === 201) {
                         // Após a criação da conta, verifica se o usuário está autenticado
                         const authResponse = await axios.get("/auth/check", { withCredentials: true });
-                        setUsername(authResponse.data.username); // Update the username
+                        
+                        if (authResponse.status === 200) {
+                            console.log(authResponse.data.username)
+                            setUsername(authResponse.data.username);
+            
+                            // Redireciona automaticamente para a página de chat
+                            navigate("/chat");
+                        }
                     }
                 } catch (error) {
                     // Exibe uma mensagem de erro se houver algum problema
@@ -135,6 +139,10 @@ export default function Chat() {
                     }
                 }
             };
+            
+            
+            
+            
 
         return (
                 <div className="Chat-Page">
