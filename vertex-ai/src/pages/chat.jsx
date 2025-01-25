@@ -101,7 +101,11 @@ export default function Chat() {
                 e.preventDefault();
                 try {
                         const response = await axios.post("/signup", formData);
-                        navigate("/chat");
+                        if (response.status === 200) {
+                                // Revalidate user status
+                                const authResponse = await axios.get("/auth/check", { withCredentials: true });
+                                setUsername(authResponse.data.username); // Update the username
+                            }
                 } catch (error) {
                         if (error.response) {
                                 setMessage(error.response.data.message);
@@ -114,16 +118,23 @@ export default function Chat() {
         const handleSubmitCriar = async (e) => {
                 e.preventDefault();
                 try {
-                        const response = await axios.post("/signin", formDataSignup);
-                        navigate("/chat");
+                    // Envia os dados de criação de conta
+                    const response = await axios.post("/signin", formDataSignup);
+                    
+                    if (response.status === 200) {
+                        // Após a criação da conta, verifica se o usuário está autenticado
+                        const authResponse = await axios.get("/auth/check", { withCredentials: true });
+                        setUsername(authResponse.data.username); // Update the username
+                    }
                 } catch (error) {
-                        if (error.response) {
-                                setMessage(error.response.data.message);
-                        } else {
-                                setMessage("Algum Erro Ocurreu :(");
-                        }
+                    // Exibe uma mensagem de erro se houver algum problema
+                    if (error.response) {
+                        setMessage(error.response.data.message);
+                    } else {
+                        setMessage("Algum erro ocorreu. Tente novamente!");
+                    }
                 }
-        };
+            };
 
         return (
                 <div className="Chat-Page">
