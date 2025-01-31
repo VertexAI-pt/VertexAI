@@ -65,34 +65,54 @@ export default function Chat() {
                 fetchHistory();
             }, []); // Use a dependência vazia para rodar isso uma vez quando o componente for montado
             
-        const sendMessage = async () => {
+            const sendMessage = async () => {
                 if (!input.trim()) return;
-
+            
                 try {
-                        const response = await fetch(
-                                "http://localhost:8000/openai",
-                                {
-                                        method: "POST",
-                                        headers: {
-                                                "Content-Type":
-                                                        "application/json",
-                                        },
-                                        credentials: "include",
-                                        body: JSON.stringify({ input }),
-                                },
-                        );
-
-                        if (response.ok) {
-                                const data = await response.json();
-                                setChatHistory(data.history);
-                                setInput(""); // Clear the input
-                        } else {
-                                console.error("Erro ao enviar mensagem.");
-                        }
+                    const response = await fetch("http://localhost:8000/openai", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        credentials: "include",
+                        body: JSON.stringify({ input }),
+                    });
+            
+                    if (response.ok) {
+                        const data = await response.json();
+                        const assistantMessage = data.message.content;
+            
+                        setChatHistory((prev) => [...prev, { role: "user", content: input }]);
+                        setInput("");
+            
+                        let currentMessage = "";
+                        let index = 0;
+            
+                        const typeEffect = () => {
+                            if (index < assistantMessage.length) {
+                                currentMessage += assistantMessage[index];
+                                setChatHistory((prev) => {
+                                    const newHistory = [...prev];
+                                    if (newHistory.length === 0 || newHistory[newHistory.length - 1].role !== "assistant") {
+                                        newHistory.push({ role: "assistant", content: "" });
+                                    }
+                                    newHistory[newHistory.length - 1].content = currentMessage;
+                                    return [...newHistory];
+                                });
+            
+                                index++;
+                                setTimeout(typeEffect, 25); // Velocidade da digitação
+                            }
+                        };
+            
+                        typeEffect();
+                    } else {
+                        console.error("Erro ao enviar mensagem.");
+                    }
                 } catch (error) {
-                        console.error("Erro ao conectar ao servidor:", error);
+                    console.error("Erro ao conectar ao servidor:", error);
                 }
-        };
+            };
 
         const handleSubmitLogin = async (e) => {
                 e.preventDefault();
