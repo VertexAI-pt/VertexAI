@@ -87,10 +87,11 @@ export default function Chat() {
             
                         let currentMessage = "";
                         let index = 0;
+                        const step = 4; // Mostra 4 caracteres por ciclo para mais velocidade
             
                         const typeEffect = () => {
                             if (index < assistantMessage.length) {
-                                currentMessage += assistantMessage[index];
+                                currentMessage += assistantMessage.slice(index, index + step);
                                 setChatHistory((prev) => {
                                     const newHistory = [...prev];
                                     if (newHistory.length === 0 || newHistory[newHistory.length - 1].role !== "assistant") {
@@ -100,8 +101,8 @@ export default function Chat() {
                                     return [...newHistory];
                                 });
             
-                                index++;
-                                setTimeout(typeEffect, 25); // Velocidade da digitação
+                                index += step;
+                                setTimeout(typeEffect, 10); // Tempo ajustado para ser mais rápido
                             }
                         };
             
