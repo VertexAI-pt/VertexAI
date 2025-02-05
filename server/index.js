@@ -57,7 +57,7 @@ app.post("/signin", async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = new User({ username, email, password: hashedPassword });
         await newUser.save();
-       
+
         res.cookie("username", newUser.username, {
                 httpOnly: true,
                 secure: false,
@@ -67,7 +67,7 @@ app.post("/signin", async (req, res) => {
         res.status(201).json({
                 message: "Congratulations! Your Account Was Created!",
         });
-        console.log(req.cookies)
+        console.log(req.cookies);
 });
 
 app.post("/signup", async (req, res) => {
@@ -94,7 +94,7 @@ app.post("/signup", async (req, res) => {
                         sameSite: "lax",
                 });
                 res.json({ message: "Logged in successfully!" });
-                console.log(req.cookies)
+                console.log(req.cookies);
         }
 });
 
@@ -140,7 +140,7 @@ app.post("/openai", requestLimiter, async (req, res) => {
                         messages: [
                                 {
                                         role: "system",
-                                        content: "Your name is VEX. You are an expert in software development, ready to assist with programming, solve technical problems, and provide clear and detailed explanations.",
+                                        content: "Your name is VEX. You are an expert in software development, ready to assist with programming, solve technical problems, and provide clear and detailed explanations. If the user speaks Portuguese from Portugal, dont answer in portuguese from Brazil.",
                                 },
                                 ...chatHistory.messages,
                         ],

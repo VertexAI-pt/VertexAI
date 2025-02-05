@@ -1,5 +1,5 @@
 import "../styles/pages/chat.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Markdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { coy } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -11,8 +11,11 @@ export default function Chat() {
         const [username, setUsername] = useState(null);
         const [input, setInput] = useState("");
         const [chatHistory, setChatHistory] = useState([]);
-        const [message, setMessage] = useState("");
         const navigate = useNavigate();
+
+        // Create a ref for the chat container
+        const chatContainerRef = useRef(null);
+
         const [formData, setFormData] = useState({
                 email: "",
                 password: "",
@@ -23,7 +26,7 @@ export default function Chat() {
                 email: "",
                 password: "",
         });
-        
+
         const handleChange = (e) => {
                 const { name, value } = e.target;
                 setFormData({ ...formData, [name]: value });
@@ -32,88 +35,118 @@ export default function Chat() {
         const handleChangeCriar = (e) => {
                 const { name, value } = e.target;
                 setFormDataSignup({ ...formDataSignup, [name]: value });
-        }; 
+        };
 
-
-        
-        
         useEffect(() => {
                 axios.get("/auth/check", { withCredentials: true })
-                    .then((response) => {
-                        setUsername(response.data.username);
-                    })
-                    .catch(() => {
-                        setUsername(null);
-                    });
-            
+                        .then((response) => {
+                                setUsername(response.data.username);
+                        })
+                        .catch(() => {
+                                setUsername(null);
+                        });
+
                 const fetchHistory = async () => {
-                    try {
-                        const response = await fetch(
-                            "http://localhost:8000/openai/history",
-                            {
-                                credentials: "include",
-                            }
-                        );
-                        if (response.ok) {
-                            const data = await response.json();
-                            setChatHistory(data.history || []);
+                        try {
+                                const response = await fetch(
+                                        "http://localhost:8000/openai/history",
+                                        { credentials: "include" },
+                                );
+                                if (response.ok) {
+                                        const data = await response.json();
+                                        setChatHistory(data.history || []);
+                                }
+                        } catch (error) {
+                                console.error(
+                                        "Erro ao carregar histórico:",
+                                        error,
+                                );
                         }
-                    } catch (error) {
-                        console.error("Erro ao carregar histórico:", error);
-                    }
                 };
                 fetchHistory();
-            }, []); // Use a dependência vazia para rodar isso uma vez quando o componente for montado
-            
-            const sendMessage = async () => {
+        }, []);
+
+        const sendMessage = async () => {
                 if (!input.trim()) return;
-            
+
+                // Adiciona a mensagem do usuário ao histórico de chat
+                const userMessage = { role: "user", content: input };
+                setChatHistory((prev) => [...prev, userMessage]);
+
                 try {
-                    const response = await fetch("http://localhost:8000/openai", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        credentials: "include",
-                        body: JSON.stringify({ input }),
-                    });
-            
-                    if (response.ok) {
-                        const data = await response.json();
-                        const assistantMessage = data.message.content;
-            
-                        setChatHistory((prev) => [...prev, { role: "user", content: input }]);
-                        setInput("");
-            
-                        let currentMessage = "";
-                        let index = 0;
-                        const step = 4; // Mostra 4 caracteres por ciclo para mais velocidade
-            
-                        const typeEffect = () => {
-                            if (index < assistantMessage.length) {
-                                currentMessage += assistantMessage.slice(index, index + step);
-                                setChatHistory((prev) => {
-                                    const newHistory = [...prev];
-                                    if (newHistory.length === 0 || newHistory[newHistory.length - 1].role !== "assistant") {
-                                        newHistory.push({ role: "assistant", content: "" });
-                                    }
-                                    newHistory[newHistory.length - 1].content = currentMessage;
-                                    return [...newHistory];
-                                });
-            
-                                index += step;
-                                setTimeout(typeEffect, 10); // Tempo ajustado para ser mais rápido
-                            }
-                        };
-            
-                        typeEffect();
-                    } else {
-                        console.error("Erro ao enviar mensagem.");
-                    }
+                        const response = await fetch(
+                                "http://localhost:8000/openai",
+                                {
+                                        method: "POST",
+                                        headers: {
+                                                "Content-Type":
+                                                        "application/json",
+                                        },
+                                        credentials: "include",
+                                        body: JSON.stringify({ input }),
+                                },
+                        );
+
+                        if (response.ok) {
+                                const data = await response.json();
+                                const assistantMessage = data.message.content;
+                                setInput(""); // Limpa o campo de entrada
+
+                                let currentMessage = "";
+                                let index = 0;
+                                const step = 4; // Mostra 4 caracteres por vez
+
+                                // Adiciona uma entrada vazia para o assistente antes de iniciar o efeito de digitação
+                                setChatHistory((prev) => [
+                                        ...prev,
+                                        { role: "assistant", content: "" }, // Adiciona uma entrada vazia inicialmente
+                                ]);
+
+                                const typeEffect = () => {
+                                        if (index < assistantMessage.length) {
+                                                currentMessage +=
+                                                        assistantMessage.slice(
+                                                                index,
+                                                                index + step,
+                                                        );
+                                                setChatHistory((prev) => {
+                                                        const newHistory = [
+                                                                ...prev,
+                                                        ];
+                                                        newHistory[
+                                                                newHistory.length -
+                                                                        1
+                                                        ].content =
+                                                                currentMessage; // Atualiza a última entrada
+                                                        return newHistory;
+                                                });
+                                                index += step;
+
+                                                // Scroll para baixo após a atualização do histórico
+                                                setTimeout(() => {
+                                                        chatContainerRef.current.scrollTop =
+                                                                chatContainerRef.current.scrollHeight;
+                                                }, 0);
+
+                                                setTimeout(typeEffect, 10); // Ajusta o tempo conforme necessário
+                                        } else {
+                                                // Scroll para baixo após a mensagem completa
+                                                setTimeout(() => {
+                                                        chatContainerRef.current.scrollTop =
+                                                                chatContainerRef.current.scrollHeight;
+                                                }, 0);
+                                        }
+                                };
+
+                                // Começa o efeito de digitação
+                                typeEffect();
+                        } else {
+                                console.error("Erro ao enviar mensagem.");
+                        }
                 } catch (error) {
-                    console.error("Erro ao conectar ao servidor:", error);
+                        console.error("Erro ao conectar ao servidor:", error);
                 }
-            };
+        };
 
         const handleSubmitLogin = async (e) => {
                 e.preventDefault();
@@ -121,14 +154,19 @@ export default function Chat() {
                         const response = await axios.post("/signup", formData);
                         if (response.status === 200) {
                                 // Revalidate user status
-                                const authResponse = await axios.get("/auth/check", { withCredentials: true });
+                                const authResponse = await axios.get(
+                                        "/auth/check",
+                                        { withCredentials: true },
+                                );
                                 setUsername(authResponse.data.username); // Update the username
-                            }
+                        }
                 } catch (error) {
                         if (error.response) {
-                                setMessage(error.response.data.message);
+                                console.error(error.response.data.message);
                         } else {
-                                setMessage("Alguma cena aconteceu malee :(");
+                                console.error(
+                                        "Algum erro ocorreu. Tente novamente!",
+                                );
                         }
                 }
         };
@@ -136,34 +174,31 @@ export default function Chat() {
         const handleSubmitCriar = async (e) => {
                 e.preventDefault();
                 try {
-                    // Envia os dados de criação de conta
-                    const response = await axios.post("/signin", formDataSignup);
-                    
-                    if (response.status === 201) {
-                        // Após a criação da conta, verifica se o usuário está autenticado
-                        const authResponse = await axios.get("/auth/check", { withCredentials: true });
-                        
-                        if (authResponse.status === 200) {
-                            console.log(authResponse.data.username)
-                            setUsername(authResponse.data.username);
-            
-                            // Redireciona automaticamente para a página de chat
-                            navigate("/chat");
+                        const response = await axios.post(
+                                "/signin",
+                                formDataSignup,
+                        );
+                        if (response.status === 201) {
+                                const authResponse = await axios.get(
+                                        "/auth/check",
+                                        { withCredentials: true },
+                                );
+                                if (authResponse.status === 200) {
+                                        console.log(authResponse.data.username);
+                                        setUsername(authResponse.data.username);
+                                        navigate("/chat"); // Redirects to chat automatically
+                                }
                         }
-                    }
                 } catch (error) {
-                    // Exibe uma mensagem de erro se houver algum problema
-                    if (error.response) {
-                        setMessage(error.response.data.message);
-                    } else {
-                        setMessage("Algum erro ocorreu. Tente novamente!");
-                    }
+                        if (error.response) {
+                                console.error(error.response.data.message);
+                        } else {
+                                console.error(
+                                        "Algum erro ocorreu. Tente novamente!",
+                                );
+                        }
                 }
-            };
-            
-            
-            
-            
+        };
 
         return (
                 <div className="Chat-Page">
@@ -174,7 +209,11 @@ export default function Chat() {
                                 </a>
                         </div>
 
-                        <div className="Chat-Body">
+                        <div
+                                className="Chat-Body"
+                                ref={chatContainerRef}
+                                style={{ height: "300px", overflowY: "auto" }}
+                        >
                                 {username ? (
                                         chatHistory.map((msg, index) => (
                                                 <div
@@ -189,15 +228,12 @@ export default function Chat() {
                                                         {msg.role !==
                                                                 "user" && (
                                                                 <img
-                                                                        src="../public/img/Vertexailogo.png"
+                                                                        src="../img/Vertexailogo.png"
                                                                         alt="Assistant"
                                                                         className="Assistant-Avatar"
                                                                 />
                                                         )}
                                                         <Markdown
-                                                                children={
-                                                                        msg.content
-                                                                }
                                                                 components={{
                                                                         code({
                                                                                 node,
@@ -242,7 +278,9 @@ export default function Chat() {
                                                                                 );
                                                                         },
                                                                 }}
-                                                        />
+                                                        >
+                                                                {msg.content}
+                                                        </Markdown>
                                                 </div>
                                         ))
                                 ) : (
@@ -251,7 +289,9 @@ export default function Chat() {
                                                         <div className="Login-Side">
                                                                 <h2>Login</h2>
                                                                 <form
-                                                                        onSubmit={handleSubmitLogin}
+                                                                        onSubmit={
+                                                                                handleSubmitLogin
+                                                                        }
                                                                 >
                                                                         <div className="Form-Group">
                                                                                 <label htmlFor="email">
@@ -261,8 +301,12 @@ export default function Chat() {
                                                                                         type="email"
                                                                                         id="email"
                                                                                         name="email"
-                                                                                        value={formData.email}
-                                                                                        onChange={handleChange}
+                                                                                        value={
+                                                                                                formData.email
+                                                                                        }
+                                                                                        onChange={
+                                                                                                handleChange
+                                                                                        }
                                                                                         required
                                                                                 />
                                                                         </div>
@@ -274,8 +318,12 @@ export default function Chat() {
                                                                                         type="password"
                                                                                         id="password"
                                                                                         name="password"
-                                                                                        value={formData.password}
-                                                                                        onChange={handleChange}
+                                                                                        value={
+                                                                                                formData.password
+                                                                                        }
+                                                                                        onChange={
+                                                                                                handleChange
+                                                                                        }
                                                                                         required
                                                                                 />
                                                                         </div>
@@ -290,7 +338,9 @@ export default function Chat() {
                                                         <div className="SignIn-Side">
                                                                 <h2>Sign Up</h2>
                                                                 <form
-                                                                        onSubmit={handleSubmitCriar}
+                                                                        onSubmit={
+                                                                                handleSubmitCriar
+                                                                        }
                                                                 >
                                                                         <div className="Form-Group">
                                                                                 <label htmlFor="name">
@@ -303,7 +353,9 @@ export default function Chat() {
                                                                                         value={
                                                                                                 formDataSignup.username
                                                                                         }
-                                                                                        onChange={handleChangeCriar}
+                                                                                        onChange={
+                                                                                                handleChangeCriar
+                                                                                        }
                                                                                         required
                                                                                 />
                                                                         </div>
@@ -315,8 +367,12 @@ export default function Chat() {
                                                                                         type="email"
                                                                                         id="email"
                                                                                         name="email"
-                                                                                        value={formDataSignup.email}
-                                                                                        onChange={handleChangeCriar}
+                                                                                        value={
+                                                                                                formDataSignup.email
+                                                                                        }
+                                                                                        onChange={
+                                                                                                handleChangeCriar
+                                                                                        }
                                                                                         required
                                                                                 />
                                                                         </div>
@@ -328,8 +384,12 @@ export default function Chat() {
                                                                                         type="password"
                                                                                         id="password"
                                                                                         name="password"
-                                                                                        value={formDataSignup.password}
-                                                                                        onChange={handleChangeCriar}
+                                                                                        value={
+                                                                                                formDataSignup.password
+                                                                                        }
+                                                                                        onChange={
+                                                                                                handleChangeCriar
+                                                                                        }
                                                                                         required
                                                                                 />
                                                                         </div>

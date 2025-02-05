@@ -45,6 +45,7 @@
 .App-item3:hover,
 .App-item4:hover {
         font-weight: bold;
+        text-decoration: underline;
 }
 
 .Signin-button {
