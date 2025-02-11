@@ -1,0 +1,246 @@
+.about-page {
+        min-height: 100vh;
+        background-color: #f0f4f8;
+        color: #2d3748;
+}
+
+.container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 4rem 1rem;
+}
+
+.page-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 2rem;
+        color: #2c5282;
+}
+
+.page-description {
+        font-size: 1.25rem;
+        text-align: center;
+        margin-bottom: 4rem;
+        max-width: 48rem;
+        margin-left: auto;
+        margin-right: auto;
+        color: #4a5568;
+}
+
+.founders-section,
+.features-section,
+.mission-section {
+        background-color: white;
+        padding: 2rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 4rem;
+}
+
+.section-title {
+        font-size: 1.75rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        color: #2c5282;
+        text-align: center;
+}
+
+.founders-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+}
+
+@media (min-width: 768px) {
+        .founders-grid {
+                grid-template-columns: repeat(2, 1fr);
+        }
+}
+
+.founder-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 1.5rem;
+        background-color: #f7fafc;
+        border-radius: 0.5rem;
+        transition: all 0.3s ease-in-out;
+}
+
+.founder-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.founder-image {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 1rem;
+}
+
+.founder-name {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #2c5282;
+        margin-bottom: 0.25rem;
+}
+
+.founder-role {
+        font-size: 1rem;
+        color: #4a5568;
+        margin-bottom: 0.75rem;
+}
+
+.founder-bio {
+        font-size: 0.875rem;
+        color: #4a5568;
+        margin-bottom: 1rem;
+        line-height: 1.5;
+}
+
+.founder-social {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+}
+
+.social-link {
+        color: #3182ce;
+        transition: color 0.2s;
+}
+
+.social-link:hover {
+        color: #2c5282;
+}
+
+.social-icon {
+        width: 1.5rem;
+        height: 1.5rem;
+}
+
+.features-grid {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 2rem;
+}
+
+@media (min-width: 768px) {
+        .features-grid {
+                grid-template-columns: repeat(3, 1fr);
+        }
+}
+
+.feature-card {
+        background-color: #f7fafc;
+        padding: 2rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease-in-out;
+        text-align: center;
+}
+
+.feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.feature-icon {
+        width: 3rem;
+        height: 3rem;
+        margin: 0 auto 1rem;
+        color: #3182ce;
+}
+
+.feature-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #2c5282;
+}
+
+.feature-description {
+        color: #4a5568;
+}
+
+.mission-text {
+        color: #4a5568;
+        margin-bottom: 1rem;
+        line-height: 1.6;
+}
+
+.show-more-button {
+        display: flex;
+        align-items: center;
+        color: #3182ce;
+        font-weight: 500;
+        transition: color 0.2s;
+}
+
+.show-more-button:hover {
+        color: #2c5282;
+}
+
+.chevron-icon {
+        margin-left: 0.25rem;
+        width: 1.25rem;
+        height: 1.25rem;
+}
+
+@media (prefers-color-scheme: dark) {
+        .about-page {
+                background-color: #1a202c;
+                color: #e2e8f0;
+        }
+
+        .page-title,
+        .section-title {
+                color: #63b3ed;
+        }
+
+        .page-description,
+        .mission-text {
+                color: #a0aec0;
+        }
+
+        .founders-section,
+        .features-section,
+        .mission-section {
+                background-color: #2d3748;
+        }
+
+        .founder-card,
+        .feature-card {
+                background-color: #2d3748;
+        }
+
+        .founder-name,
+        .feature-title {
+                color: #63b3ed;
+        }
+
+        .founder-role,
+        .founder-bio,
+        .feature-description {
+                color: #a0aec0;
+        }
+
+        .social-link {
+                color: #63b3ed;
+        }
+
+        .social-link:hover {
+                color: #90cdf4;
+        }
+
+        .show-more-button {
+                color: #63b3ed;
+        }
+
+        .show-more-button:hover {
+                color: #90cdf4;
+        }
+}

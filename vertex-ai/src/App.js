@@ -5,6 +5,7 @@ import Signin from "./pages/signin";
 import Error404 from "./pages/error404";
 import Signorlog from "./pages/signorlog";
 import SignUp from "./pages/signup";
+import About from "./pages/about";
 
 export default function App() {
         return (
@@ -20,6 +21,11 @@ export default function App() {
                                         <Route
                                                 path="/chat"
                                                 element={<Chat />}
+                                        />
+
+                                        <Route
+                                                path="/about"
+                                                element={<About />}
                                         />
 
                                         <Route
