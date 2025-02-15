@@ -1,9 +1,9 @@
-import "../styles/components/signinform.css";
+import "../styles/components/login.css";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-export default function SigninForm() {
+export default function Signup() {
         //BACK-END
         const [formData, setFormData] = useState({
                 username: "",
@@ -40,7 +40,10 @@ export default function SigninForm() {
                                 <p className="Signin-Description">
                                         Create Your Account And Join Us
                                 </p>
-                                <form onSubmit={handleSubmit}>
+                                <form
+                                        onSubmit={handleSubmit}
+                                        className="Signin-Form"
+                                >
                                         <div className="Form-Group">
                                                 <label htmlFor="username">
                                                         Your Name
@@ -95,7 +98,7 @@ export default function SigninForm() {
                                 </form>
                         </div>
                         {message && (
-                                <div className="error-message">{message}</div>
+                                <div className="Error-Message">{message}</div>
                         )}
                 </div>
         );

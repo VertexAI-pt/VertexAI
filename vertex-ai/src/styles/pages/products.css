@@ -1,0 +1,106 @@
+.products-page {
+        min-height: 100vh;
+        background-color: var(--background);
+        color: var(--on-background);
+        padding: 4rem 0;
+}
+
+.page-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 1rem;
+        color: var(--primary);
+}
+
+.page-description {
+        font-size: 1.25rem;
+        text-align: center;
+        margin-bottom: 3rem;
+        color: var(--on-surface);
+}
+
+.products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+}
+
+.product-card {
+        background-color: var(--surface);
+        border-radius: 10px;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.product-name {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        color: var(--primary);
+}
+
+.product-description {
+        font-size: 1rem;
+        color: var(--on-surface);
+        margin-bottom: 1.5rem;
+}
+
+.product-price {
+        font-size: 2rem;
+        font-weight: bold;
+        color: var(--secondary);
+        margin-bottom: 1.5rem;
+}
+
+.product-features {
+        list-style-type: none;
+        padding: 0;
+        margin-bottom: 1.5rem;
+        text-align: left;
+}
+
+.product-features li {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.5rem;
+        color: var(--on-surface);
+}
+
+.product-features li svg {
+        margin-right: 0.5rem;
+        color: var(--secondary);
+}
+
+.buy-button {
+        background-color: var(--primary);
+        color: var(--on-primary);
+        border: none;
+        border-radius: 5px;
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+}
+
+.buy-button:hover {
+        background-color: var(--primary-variant);
+}
+
+.buy-button svg {
+        margin-right: 0.5rem;
+}
+
+@media (max-width: 768px) {
+        .products-grid {
+                grid-template-columns: 1fr;
+        }
+}

@@ -1,11 +1,15 @@
+"use client";
+
 import "../styles/components/nav.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { User, LogOut, Menu, X } from "lucide-react";
 import axios from "axios";
 
 export default function Nav() {
         const [username, setUsername] = useState(null);
+        const [isMenuOpen, setIsMenuOpen] = useState(false);
+        const router = useNavigate();
 
         useEffect(() => {
                 axios.get("/auth/check", { withCredentials: true })
@@ -16,58 +20,113 @@ export default function Nav() {
                                 setUsername(null);
                         });
         }, []);
+
+        const handleLogout = async () => {
+                try {
+                        const response = await fetch(
+                                "http://localhost:8000/logout",
+                                {
+                                        method: "POST",
+                                        credentials: "include",
+                                },
+                        );
+
+                        if (response.ok) {
+                                console.log("User logged out");
+                                setUsername(null);
+                                router.push("/home");
+                        } else {
+                                console.error("Failed to log out");
+                        }
+                } catch (error) {
+                        console.error("Error logging out:", error);
+                }
+        };
+
+        const toggleMenu = () => {
+                setIsMenuOpen(!isMenuOpen);
+        };
+
         return (
                 <nav className="App-nav">
-                        <ul>
-                                <div className="App-logo">
+                        <div className="nav-container">
+                                <a href="/home" className="App-logo">
                                         <img
                                                 className="logo"
-                                                src="./img/Vertexailogo-removebg-preview.png"
+                                                src="/img/Vertexailogo-removebg-preview.png"
                                                 alt="Vertex.AI Logo"
                                         />
-                                </div>
+                                </a>
 
-                                <li>
-                                        <a className="App-item1" href="/home">
-                                                Home
-                                        </a>
-                                </li>
+                                <button
+                                        className="menu-toggle"
+                                        onClick={toggleMenu}
+                                >
+                                        {isMenuOpen ? <X /> : <Menu />}
+                                </button>
 
-                                <li>
-                                        <a className="App-item3" href="/about">
-                                                About
-                                        </a>
-                                </li>
-                                <li>
-                                        <a className="App-item4" href="/chat">
-                                                Chat
-                                        </a>
-                                </li>
-
-                                <li>
-                                        <a
-                                                className="Signin-button"
-                                                href="/signorlog"
-                                        >
+                                <ul
+                                        className={`nav-links ${isMenuOpen ? "active" : ""}`}
+                                >
+                                        <li>
+                                                <a
+                                                        className="nav-item"
+                                                        href="/home"
+                                                >
+                                                        Home
+                                                </a>
+                                        </li>
+                                        <li>
+                                                <a
+                                                        className="nav-item"
+                                                        href="/about"
+                                                >
+                                                        About
+                                                </a>
+                                        </li>
+                                        <li>
+                                                <a
+                                                        className="nav-item"
+                                                        href="/chat"
+                                                >
+                                                        Chat
+                                                </a>
+                                        </li>
+                                        <li>
                                                 {username ? (
-                                                        <li className="App-item3">
-                                                                Welcome,{" "}
-                                                                {username}!
-                                                        </li>
+                                                        <button
+                                                                className="nav-item logout-button"
+                                                                onClick={
+                                                                        handleLogout
+                                                                }
+                                                        >
+                                                                <LogOut
+                                                                        size={
+                                                                                20
+                                                                        }
+                                                                />
+                                                                <span>
+                                                                        Logout
+                                                                </span>
+                                                        </button>
                                                 ) : (
-                                                        <FontAwesomeIcon
-                                                                icon={faUser}
-                                                                bounce
-                                                                href="/signin"
-                                                                size="lg"
-                                                                style={{
-                                                                        color: "#ffffff",
-                                                                }}
-                                                        />
+                                                        <a
+                                                                className="nav-item login-button"
+                                                                href="/log"
+                                                        >
+                                                                <User
+                                                                        size={
+                                                                                20
+                                                                        }
+                                                                />
+                                                                <span>
+                                                                        Login
+                                                                </span>
+                                                        </a>
                                                 )}
-                                        </a>
-                                </li>
-                        </ul>
+                                        </li>
+                                </ul>
+                        </div>
                 </nav>
         );
 }

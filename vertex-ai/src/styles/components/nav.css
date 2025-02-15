@@ -1,59 +1,100 @@
-.App-logo {
-        pointer-events: none;
-}
-
-.logo {
-        height: 100px;
-}
-
 .App-nav {
-        backdrop-filter: blur(30px);
-        box-shadow: 0px 0px 30px rgba(227, 228, 237, 0.37);
-        border: 2px solid rgba(255, 228, 237, 0.18);
-        border-radius: 15px;
-        width: 100%;
+        background-color: var(--surface);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         position: fixed;
-        justify-content: space-evenly;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
 }
 
-.App-nav ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        display: block;
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        gap: 20px;
-        justify-content: space-evenly;
-        text-align: center;
+.nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        max-width: 1200px;
+        margin: 0 auto;
+}
+
+.App-logo {
+        display: flex;
         align-items: center;
 }
 
-.App-item1,
-.App-item2,
-.App-item3,
-.App-item4 {
-        text-decoration: none;
-        color: white;
-        font-size: 20px;
-        gap: 20px;
-        transition: 0.5s ease-in-out;
+.logo {
+        height: 40px;
+        width: auto;
 }
 
-.App-item1:hover,
-.App-item2:hover,
-.App-item3:hover,
-.App-item4:hover {
-        font-weight: bold;
-        text-decoration: underline;
-}
-
-.Signin-button {
-        background: none;
-        color: inherit;
-        border: none;
+.nav-links {
+        display: flex;
+        list-style: none;
+        margin: 0;
         padding: 0;
-        font: inherit;
+}
+
+.nav-item {
+        color: var(--on-surface);
+        text-decoration: none;
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+        transition: color 0.3s ease;
+}
+
+.nav-item:hover {
+        color: var(--primary);
+}
+
+.login-button,
+.logout-button {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background-color: var(--primary);
+        color: var(--on-primary);
+        border: none;
+        border-radius: 5px;
+        padding: 0.5rem 1rem;
         cursor: pointer;
-        outline: inherit;
+        transition: background-color 0.3s ease;
+}
+
+.login-button:hover,
+.logout-button:hover {
+        background-color: var(--primary-variant);
+}
+
+.menu-toggle {
+        display: none;
+        background: none;
+        border: none;
+        color: var(--on-surface);
+        cursor: pointer;
+        font-size: 1.5rem;
+}
+
+@media (max-width: 768px) {
+        .menu-toggle {
+                display: block;
+        }
+
+        .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--surface);
+                padding: 1rem;
+        }
+
+        .nav-links.active {
+                display: flex;
+        }
+
+        .nav-item {
+                padding: 0.5rem 0;
+        }
 }

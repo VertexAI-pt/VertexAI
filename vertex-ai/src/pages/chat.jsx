@@ -1,9 +1,13 @@
+"use client";
+
 import "../styles/pages/chat.css";
 import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Markdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { coy } from "react-syntax-highlighter/dist/esm/styles/prism";
-import "font-awesome/css/font-awesome.min.css";
+import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaperPlane, faLock } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -12,8 +16,6 @@ export default function Chat() {
         const [input, setInput] = useState("");
         const [chatHistory, setChatHistory] = useState([]);
         const navigate = useNavigate();
-
-        // Create a ref for the chat container
         const chatContainerRef = useRef(null);
 
         const [formData, setFormData] = useState({
@@ -69,7 +71,6 @@ export default function Chat() {
         const sendMessage = async () => {
                 if (!input.trim()) return;
 
-                // Adiciona a mensagem do usuário ao histórico de chat
                 const userMessage = { role: "user", content: input };
                 setChatHistory((prev) => [...prev, userMessage]);
 
@@ -90,16 +91,15 @@ export default function Chat() {
                         if (response.ok) {
                                 const data = await response.json();
                                 const assistantMessage = data.message.content;
-                                setInput(""); // Limpa o campo de entrada
+                                setInput("");
 
                                 let currentMessage = "";
                                 let index = 0;
-                                const step = 4; // Mostra 4 caracteres por vez
+                                const step = 4;
 
-                                // Adiciona uma entrada vazia para o assistente antes de iniciar o efeito de digitação
                                 setChatHistory((prev) => [
                                         ...prev,
-                                        { role: "assistant", content: "" }, // Adiciona uma entrada vazia inicialmente
+                                        { role: "assistant", content: "" },
                                 ]);
 
                                 const typeEffect = () => {
@@ -117,20 +117,18 @@ export default function Chat() {
                                                                 newHistory.length -
                                                                         1
                                                         ].content =
-                                                                currentMessage; // Atualiza a última entrada
+                                                                currentMessage;
                                                         return newHistory;
                                                 });
                                                 index += step;
 
-                                                // Scroll para baixo após a atualização do histórico
                                                 setTimeout(() => {
                                                         chatContainerRef.current.scrollTop =
                                                                 chatContainerRef.current.scrollHeight;
                                                 }, 0);
 
-                                                setTimeout(typeEffect, 10); // Ajusta o tempo conforme necessário
+                                                setTimeout(typeEffect, 10);
                                         } else {
-                                                // Scroll para baixo após a mensagem completa
                                                 setTimeout(() => {
                                                         chatContainerRef.current.scrollTop =
                                                                 chatContainerRef.current.scrollHeight;
@@ -138,7 +136,6 @@ export default function Chat() {
                                         }
                                 };
 
-                                // Começa o efeito de digitação
                                 typeEffect();
                         } else {
                                 console.error("Erro ao enviar mensagem.");
@@ -153,12 +150,11 @@ export default function Chat() {
                 try {
                         const response = await axios.post("/signup", formData);
                         if (response.status === 200) {
-                                // Revalidate user status
                                 const authResponse = await axios.get(
                                         "/auth/check",
                                         { withCredentials: true },
                                 );
-                                setUsername(authResponse.data.username); // Update the username
+                                setUsername(authResponse.data.username);
                         }
                 } catch (error) {
                         if (error.response) {
@@ -186,7 +182,7 @@ export default function Chat() {
                                 if (authResponse.status === 200) {
                                         console.log(authResponse.data.username);
                                         setUsername(authResponse.data.username);
-                                        navigate("/chat"); // Redirects to chat automatically
+                                        navigate("/chat");
                                 }
                         }
                 } catch (error) {
@@ -200,6 +196,17 @@ export default function Chat() {
                 }
         };
 
+        const clearConversation = () => {
+                setChatHistory([]);
+        };
+
+        useEffect(() => {
+                if (chatContainerRef.current) {
+                        chatContainerRef.current.scrollTop =
+                                chatContainerRef.current.scrollHeight;
+                }
+        }, [chatContainerRef]); //Corrected dependency
+
         return (
                 <div className="Chat-Page">
                         <div className="Chat-Header">
@@ -207,204 +214,239 @@ export default function Chat() {
                                 <a href="/" className="Exit-Button">
                                         &#8592; Exit
                                 </a>
+                                <button
+                                        onClick={clearConversation}
+                                        className="Clear-Button"
+                                >
+                                        Clear Chat
+                                </button>
                         </div>
 
                         <div
                                 className="Chat-Body"
                                 ref={chatContainerRef}
-                                style={{ height: "300px", overflowY: "auto" }}
+                                style={{ scrollBehavior: "smooth" }}
                         >
-                                {username ? (
-                                        chatHistory.map((msg, index) => (
-                                                <div
-                                                        key={index}
-                                                        className={
-                                                                msg.role ===
-                                                                "user"
-                                                                        ? "User-Message"
-                                                                        : "Assistant-Message"
-                                                        }
-                                                >
-                                                        {msg.role !==
-                                                                "user" && (
-                                                                <img
-                                                                        src="../img/Vertexailogo.png"
-                                                                        alt="Assistant"
-                                                                        className="Assistant-Avatar"
-                                                                />
-                                                        )}
-                                                        <Markdown
-                                                                components={{
-                                                                        code({
-                                                                                node,
-                                                                                inline,
-                                                                                className,
-                                                                                children,
-                                                                                ...props
-                                                                        }) {
-                                                                                const match =
-                                                                                        /language-(\w+)/.exec(
-                                                                                                className ||
-                                                                                                        "",
-                                                                                        );
-                                                                                return match ? (
-                                                                                        <SyntaxHighlighter
-                                                                                                style={
-                                                                                                        coy
-                                                                                                }
-                                                                                                language={
-                                                                                                        match[1]
-                                                                                                }
-                                                                                                PreTag="div"
-                                                                                                children={String(
-                                                                                                        children,
-                                                                                                ).replace(
-                                                                                                        /\n$/,
-                                                                                                        "",
-                                                                                                )}
-                                                                                                {...props}
-                                                                                        />
-                                                                                ) : (
-                                                                                        <code
-                                                                                                className={
-                                                                                                        className
-                                                                                                }
-                                                                                                {...props}
-                                                                                        >
-                                                                                                {
-                                                                                                        children
-                                                                                                }
-                                                                                        </code>
-                                                                                );
-                                                                        },
-                                                                }}
-                                                        >
-                                                                {msg.content}
-                                                        </Markdown>
-                                                </div>
-                                        ))
-                                ) : (
-                                        <div className="Login-SignIn-Form">
-                                                <div className="Form-Container">
-                                                        <div className="Login-Side">
-                                                                <h2>Login</h2>
-                                                                <form
-                                                                        onSubmit={
-                                                                                handleSubmitLogin
+                                <AnimatePresence>
+                                        {username ? (
+                                                chatHistory.map(
+                                                        (msg, index) => (
+                                                                <motion.div
+                                                                        key={
+                                                                                index
                                                                         }
+                                                                        className={
+                                                                                msg.role ===
+                                                                                "user"
+                                                                                        ? "User-Message"
+                                                                                        : "Assistant-Message"
+                                                                        }
+                                                                        initial={{
+                                                                                opacity: 0,
+                                                                                y: 20,
+                                                                        }}
+                                                                        animate={{
+                                                                                opacity: 1,
+                                                                                y: 0,
+                                                                        }}
+                                                                        exit={{
+                                                                                opacity: 0,
+                                                                                y: -20,
+                                                                        }}
+                                                                        transition={{
+                                                                                duration: 0.3,
+                                                                        }}
                                                                 >
-                                                                        <div className="Form-Group">
-                                                                                <label htmlFor="email">
-                                                                                        Email:
-                                                                                </label>
-                                                                                <input
-                                                                                        type="email"
-                                                                                        id="email"
-                                                                                        name="email"
-                                                                                        value={
-                                                                                                formData.email
-                                                                                        }
-                                                                                        onChange={
-                                                                                                handleChange
-                                                                                        }
-                                                                                        required
+                                                                        {msg.role !==
+                                                                                "user" && (
+                                                                                <img
+                                                                                        src="../img/Vertexailogo.png"
+                                                                                        alt="Assistant"
+                                                                                        className="Assistant-Avatar"
                                                                                 />
-                                                                        </div>
-                                                                        <div className="Form-Group">
-                                                                                <label htmlFor="password">
-                                                                                        Password:
-                                                                                </label>
-                                                                                <input
-                                                                                        type="password"
-                                                                                        id="password"
-                                                                                        name="password"
-                                                                                        value={
-                                                                                                formData.password
-                                                                                        }
-                                                                                        onChange={
-                                                                                                handleChange
-                                                                                        }
-                                                                                        required
-                                                                                />
-                                                                        </div>
-                                                                        <button
-                                                                                type="submit"
-                                                                                className="Form-Button"
+                                                                        )}
+                                                                        <Markdown
+                                                                                components={{
+                                                                                        code({
+                                                                                                node,
+                                                                                                inline,
+                                                                                                className,
+                                                                                                children,
+                                                                                                ...props
+                                                                                        }) {
+                                                                                                const match =
+                                                                                                        /language-(\w+)/.exec(
+                                                                                                                className ||
+                                                                                                                        "",
+                                                                                                        );
+                                                                                                return !inline &&
+                                                                                                        match ? (
+                                                                                                        <SyntaxHighlighter
+                                                                                                                style={
+                                                                                                                        vscDarkPlus
+                                                                                                                }
+                                                                                                                language={
+                                                                                                                        match[1]
+                                                                                                                }
+                                                                                                                PreTag="div"
+                                                                                                                children={String(
+                                                                                                                        children,
+                                                                                                                ).replace(
+                                                                                                                        /\n$/,
+                                                                                                                        "",
+                                                                                                                )}
+                                                                                                                {...props}
+                                                                                                        />
+                                                                                                ) : (
+                                                                                                        <code
+                                                                                                                className={
+                                                                                                                        className
+                                                                                                                }
+                                                                                                                {...props}
+                                                                                                        >
+                                                                                                                {
+                                                                                                                        children
+                                                                                                                }
+                                                                                                        </code>
+                                                                                                );
+                                                                                        },
+                                                                                }}
                                                                         >
+                                                                                {
+                                                                                        msg.content
+                                                                                }
+                                                                        </Markdown>
+                                                                </motion.div>
+                                                        ),
+                                                )
+                                        ) : (
+                                                <div className="Login-SignIn-Form">
+                                                        <div className="Form-Container">
+                                                                <div className="Login-Side">
+                                                                        <h2>
                                                                                 Login
-                                                                        </button>
-                                                                </form>
-                                                        </div>
-                                                        <div className="SignIn-Side">
-                                                                <h2>Sign Up</h2>
-                                                                <form
-                                                                        onSubmit={
-                                                                                handleSubmitCriar
-                                                                        }
-                                                                >
-                                                                        <div className="Form-Group">
-                                                                                <label htmlFor="name">
-                                                                                        Name:
-                                                                                </label>
-                                                                                <input
-                                                                                        type="text"
-                                                                                        id="name"
-                                                                                        name="username"
-                                                                                        value={
-                                                                                                formDataSignup.username
-                                                                                        }
-                                                                                        onChange={
-                                                                                                handleChangeCriar
-                                                                                        }
-                                                                                        required
-                                                                                />
-                                                                        </div>
-                                                                        <div className="Form-Group">
-                                                                                <label htmlFor="email">
-                                                                                        Email:
-                                                                                </label>
-                                                                                <input
-                                                                                        type="email"
-                                                                                        id="email"
-                                                                                        name="email"
-                                                                                        value={
-                                                                                                formDataSignup.email
-                                                                                        }
-                                                                                        onChange={
-                                                                                                handleChangeCriar
-                                                                                        }
-                                                                                        required
-                                                                                />
-                                                                        </div>
-                                                                        <div className="Form-Group">
-                                                                                <label htmlFor="password">
-                                                                                        Password:
-                                                                                </label>
-                                                                                <input
-                                                                                        type="password"
-                                                                                        id="password"
-                                                                                        name="password"
-                                                                                        value={
-                                                                                                formDataSignup.password
-                                                                                        }
-                                                                                        onChange={
-                                                                                                handleChangeCriar
-                                                                                        }
-                                                                                        required
-                                                                                />
-                                                                        </div>
-                                                                        <button
-                                                                                type="submit"
-                                                                                className="Form-Button"
+                                                                        </h2>
+                                                                        <form
+                                                                                onSubmit={
+                                                                                        handleSubmitLogin
+                                                                                }
                                                                         >
+                                                                                <div className="Form-Group">
+                                                                                        <label htmlFor="email">
+                                                                                                Email:
+                                                                                        </label>
+                                                                                        <input
+                                                                                                type="email"
+                                                                                                id="email"
+                                                                                                name="email"
+                                                                                                value={
+                                                                                                        formData.email
+                                                                                                }
+                                                                                                onChange={
+                                                                                                        handleChange
+                                                                                                }
+                                                                                                required
+                                                                                        />
+                                                                                </div>
+                                                                                <div className="Form-Group">
+                                                                                        <label htmlFor="password">
+                                                                                                Password:
+                                                                                        </label>
+                                                                                        <input
+                                                                                                type="password"
+                                                                                                id="password"
+                                                                                                name="password"
+                                                                                                value={
+                                                                                                        formData.password
+                                                                                                }
+                                                                                                onChange={
+                                                                                                        handleChange
+                                                                                                }
+                                                                                                required
+                                                                                        />
+                                                                                </div>
+                                                                                <button
+                                                                                        type="submit"
+                                                                                        className="Form-Button"
+                                                                                >
+                                                                                        Login
+                                                                                </button>
+                                                                        </form>
+                                                                </div>
+                                                                <div className="SignIn-Side">
+                                                                        <h2>
                                                                                 Sign
                                                                                 Up
-                                                                        </button>
-                                                                </form>
+                                                                        </h2>
+                                                                        <form
+                                                                                onSubmit={
+                                                                                        handleSubmitCriar
+                                                                                }
+                                                                        >
+                                                                                <div className="Form-Group">
+                                                                                        <label htmlFor="name">
+                                                                                                Name:
+                                                                                        </label>
+                                                                                        <input
+                                                                                                type="text"
+                                                                                                id="name"
+                                                                                                name="username"
+                                                                                                value={
+                                                                                                        formDataSignup.username
+                                                                                                }
+                                                                                                onChange={
+                                                                                                        handleChangeCriar
+                                                                                                }
+                                                                                                required
+                                                                                        />
+                                                                                </div>
+                                                                                <div className="Form-Group">
+                                                                                        <label htmlFor="email">
+                                                                                                Email:
+                                                                                        </label>
+                                                                                        <input
+                                                                                                type="email"
+                                                                                                id="email"
+                                                                                                name="email"
+                                                                                                value={
+                                                                                                        formDataSignup.email
+                                                                                                }
+                                                                                                onChange={
+                                                                                                        handleChangeCriar
+                                                                                                }
+                                                                                                required
+                                                                                        />
+                                                                                </div>
+                                                                                <div className="Form-Group">
+                                                                                        <label htmlFor="password">
+                                                                                                Password:
+                                                                                        </label>
+                                                                                        <input
+                                                                                                type="password"
+                                                                                                id="password"
+                                                                                                name="password"
+                                                                                                value={
+                                                                                                        formDataSignup.password
+                                                                                                }
+                                                                                                onChange={
+                                                                                                        handleChangeCriar
+                                                                                                }
+                                                                                                required
+                                                                                        />
+                                                                                </div>
+                                                                                <button
+                                                                                        type="submit"
+                                                                                        className="Form-Button"
+                                                                                >
+                                                                                        Sign
+                                                                                        Up
+                                                                                </button>
+                                                                        </form>
+                                                                </div>
                                                         </div>
                                                 </div>
-                                        </div>
-                                )}
+                                        )}
+                                </AnimatePresence>
                         </div>
 
                         <div className="Chat-Footer">
@@ -413,7 +455,7 @@ export default function Chat() {
                                         placeholder={
                                                 username
                                                         ? "Talk to VEX"
-                                                        : "Login to use the chat"
+                                                        : "SignUp or Login to use VEX"
                                         }
                                         value={input}
                                         onChange={(e) =>
@@ -423,14 +465,15 @@ export default function Chat() {
                                 />
                                 {username ? (
                                         <button onClick={sendMessage}>
-                                                <i className="fa fa-paper-plane"></i>
+                                                <FontAwesomeIcon
+                                                        icon={faPaperPlane}
+                                                />
                                         </button>
                                 ) : (
-                                        <button>
-                                                <i
-                                                        className="fa fa-lock"
-                                                        aria-hidden="true"
-                                                ></i>
+                                        <button disabled>
+                                                <FontAwesomeIcon
+                                                        icon={faLock}
+                                                />
                                         </button>
                                 )}
                         </div>

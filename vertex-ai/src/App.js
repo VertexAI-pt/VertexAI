@@ -1,10 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/home";
 import Chat from "./pages/chat";
-import Signin from "./pages/signin";
 import Error404 from "./pages/error404";
-import Signorlog from "./pages/signorlog";
-import SignUp from "./pages/signup";
+import Log from "./pages/log";
 import About from "./pages/about";
 
 export default function App() {
@@ -33,20 +31,7 @@ export default function App() {
                                                 element={<Error404 />}
                                         />
 
-                                        <Route
-                                                path="/signin"
-                                                element={<Signin />}
-                                        />
-
-                                        <Route
-                                                path="/signorlog"
-                                                element={<Signorlog />}
-                                        />
-
-                                        <Route
-                                                path="/signup"
-                                                element={<SignUp />}
-                                        />
+                                        <Route path="/log" element={<Log />} />
                                 </Routes>
                         </BrowserRouter>
                 </div>

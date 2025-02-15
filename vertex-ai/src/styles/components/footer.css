@@ -1,59 +1,68 @@
 .App-footer {
-        padding: 50px;
-        margin: 0;
-        display: block;
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
-        justify-content: space-evenly;
-        text-align: center;
-        align-items: center;
-        backdrop-filter: blur(30px);
-        box-shadow: 0px 0px 30px rgba(227, 228, 237, 0.37);
-        border: 2px solid rgba(255, 228, 237, 0.18);
-        border-radius: 15px;
-        max-width: 100%;
+        background-color: var(--surface);
+        color: var(--on-surface);
+        padding: 3rem 1rem;
 }
 
-.Footer-left,
-.Footer-center,
-.Footer-right {
-        text-align: center;
-        font-size: 12px;
-        color: rgb(255, 255, 255);
+.footer-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        max-width: 1200px;
+        margin: 0 auto;
 }
 
-.Footer-left ul,
-.Footer-center ul,
-.Footer-right ul {
+.footer-section {
+        flex: 1;
+        min-width: 200px;
+        margin-bottom: 2rem;
+}
+
+.footer-section h3 {
+        color: var(--primary);
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+}
+
+.footer-section ul {
         list-style: none;
         padding: 0;
         margin: 0;
 }
 
-.App-item5,
-.App-item6,
-.App-item7,
-.App-item8,
-.App-item9,
-.App-item10,
-.App-item11,
-.App-item12,
-.App-item13 {
-        text-decoration: none;
-        color: white;
-        font-size: 15px;
-        transition: 0.4s ease-in-out;
+.footer-section ul li {
+        margin-bottom: 0.5rem;
 }
 
-.App-item5:hover,
-.App-item6:hover,
-.App-item7:hover,
-.App-item8:hover,
-.App-item9:hover,
-.App-item10:hover,
-.App-item11:hover,
-.App-item12:hover,
-.App-item13:hover {
-        font-weight: bold;
+.footer-section ul li a {
+        color: var(--on-surface);
+        text-decoration: none;
+        transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+        color: var(--primary);
+}
+
+.social-links li a {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+}
+
+.footer-bottom {
+        text-align: center;
+        margin-top: 2rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--on-surface-light);
+}
+
+@media (max-width: 768px) {
+        .footer-container {
+                flex-direction: column;
+        }
+
+        .footer-section {
+                margin-bottom: 1.5rem;
+        }
 }

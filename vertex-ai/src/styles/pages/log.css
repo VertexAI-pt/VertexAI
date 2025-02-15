@@ -1,0 +1,37 @@
+.App {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+}
+
+.Auth-Container {
+        display: flex;
+        flex-direction: row;
+        flex-grow: 1;
+}
+
+.Auth-Column {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+}
+
+.Auth-Column:first-child {
+        background-color: #1a1a1a;
+}
+
+.Auth-Column:last-child {
+        background-color: #ffffff;
+}
+
+@media (max-width: 768px) {
+        .Auth-Container {
+                flex-direction: column;
+        }
+
+        .Auth-Column {
+                min-height: 100vh;
+        }
+}
