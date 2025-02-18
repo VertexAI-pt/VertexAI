@@ -367,7 +367,7 @@ export default function Chat() {
                                                                                 </div>
                                                                                 <button
                                                                                         type="submit"
-                                                                                        className="Form-Button"
+                                                                                        className="Form-Button-Login"
                                                                                 >
                                                                                         Login
                                                                                 </button>
@@ -436,7 +436,7 @@ export default function Chat() {
                                                                                 </div>
                                                                                 <button
                                                                                         type="submit"
-                                                                                        className="Form-Button"
+                                                                                        className="Form-Button-Signup"
                                                                                 >
                                                                                         Sign
                                                                                         Up

@@ -23,8 +23,8 @@
 }
 
 .logo {
-        height: 40px;
-        width: auto;
+        height: 50px;
+        width: 110px;
 }
 
 .nav-links {
@@ -62,7 +62,8 @@
 
 .login-button:hover,
 .logout-button:hover {
-        background-color: var(--primary-variant);
+        background-color: var(--secondary);
+        color: black;
 }
 
 .menu-toggle {

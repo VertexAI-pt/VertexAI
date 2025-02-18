@@ -103,10 +103,7 @@ export default function Footer() {
                                 </div>
                         </div>
                         <div className="footer-bottom">
-                                <p>
-                                        &copy; 2023 VertexAI. All rights
-                                        reserved.
-                                </p>
+                                <p>VERTEXAI.PT</p>
                         </div>
                 </footer>
         );

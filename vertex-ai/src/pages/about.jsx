@@ -10,6 +10,7 @@ import {
         Instagram,
 } from "lucide-react";
 import "../styles/pages/about.css";
+import Nav from "../components/nav";
 
 const FeatureCard = ({ title, description, icon: Icon }) => (
         <motion.div
@@ -105,6 +106,7 @@ export default function About() {
 
         return (
                 <div className="about-page">
+                        <Nav />
                         <div className="container">
                                 <motion.h1
                                         className="page-title"

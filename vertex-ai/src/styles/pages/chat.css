@@ -186,7 +186,20 @@
         border-radius: 5px;
 }
 
-.Form-Button {
+.Form-Button-Login {
+        width: 100%;
+        padding: 0.8rem;
+        font-size: 1rem;
+        margin-top: 95px;
+        background-color: var(--primary);
+        color: var(--on-primary);
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+}
+
+.Form-Button-Signup {
         width: 100%;
         padding: 0.8rem;
         font-size: 1rem;

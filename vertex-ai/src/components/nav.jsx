@@ -53,7 +53,7 @@ export default function Nav() {
                                 <a href="/home" className="App-logo">
                                         <img
                                                 className="logo"
-                                                src="/img/Vertexailogo-removebg-preview.png"
+                                                src="/img/logoalt.png"
                                                 alt="Vertex.AI Logo"
                                         />
                                 </a>
