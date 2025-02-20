@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ShoppingCart, Check } from "lucide-react";
 import "../styles/pages/products.css";
+import Nav from "../components/nav";
 
 const ProductCard = ({ name, description, price, features }) => (
         <motion.div
@@ -70,6 +71,7 @@ export default function Products() {
 
         return (
                 <div className="products-page">
+                        <Nav />
                         <div className="container">
                                 <motion.h1
                                         className="page-title"

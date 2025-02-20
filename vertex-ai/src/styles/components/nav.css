@@ -24,7 +24,7 @@
 
 .logo {
         height: 50px;
-        width: 110px;
+        width: auto;
 }
 
 .nav-links {
@@ -36,6 +36,7 @@
 
 .nav-item {
         color: var(--on-surface);
+        margin-top: -7px;
         text-decoration: none;
         font-size: 1rem;
         padding: 0.5rem 1rem;
@@ -89,6 +90,7 @@
                 right: 0;
                 background-color: var(--surface);
                 padding: 1rem;
+                gap: 1rem;
         }
 
         .nav-links.active {

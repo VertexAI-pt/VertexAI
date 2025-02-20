@@ -4,6 +4,7 @@ import Chat from "./pages/chat";
 import Error404 from "./pages/error404";
 import Log from "./pages/log";
 import About from "./pages/about";
+import Products from "./pages/products";
 
 export default function App() {
         return (
@@ -24,6 +25,11 @@ export default function App() {
                                         <Route
                                                 path="/about"
                                                 element={<About />}
+                                        />
+
+                                        <Route
+                                                path="/products"
+                                                element={<Products />}
                                         />
 
                                         <Route

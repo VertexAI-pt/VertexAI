@@ -3,16 +3,14 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-export default function Signup() {
+export default function Login() {
         //BACK-END
         const [formData, setFormData] = useState({
-                username: "",
                 email: "",
                 password: "",
         });
         const [message, setMessage] = useState("");
         const navigate = useNavigate();
-
         const handleChange = (e) => {
                 const { name, value } = e.target;
                 setFormData({ ...formData, [name]: value });
@@ -21,85 +19,70 @@ export default function Signup() {
         const handleSubmit = async (e) => {
                 e.preventDefault();
                 try {
-                        const response = await axios.post("/signin", formData);
+                        const response = await axios.post("/login", formData); // Changed to /login
                         navigate("/home");
                 } catch (error) {
                         if (error.response) {
                                 setMessage(error.response.data.message);
                         } else {
-                                setMessage("Algum Erro Ocurreu :(");
+                                setMessage("Alguma cena aconteceu malee :(");
                         }
                 }
         };
 
         return (
                 //FRONT-END
-                <div className="Signin-Container">
-                        <div className="Signin-Card">
-                                <h1 className="Signin-Title">Join VertexAI!</h1>
-                                <p className="Signin-Description">
-                                        Create Your Account And Join Us
+                <div className="Login-Container">
+                        <div className="Login-Card">
+                                <h1 className="Login-Title">
+                                        Welcome Back To VertexAI!
+                                </h1>
+                                <p className="Login-Description">
+                                        We Are Glad To See You Again
                                 </p>
                                 <form
                                         onSubmit={handleSubmit}
-                                        className="Signin-Form"
+                                        className="Login-Form"
                                 >
                                         <div className="Form-Group">
-                                                <label htmlFor="username">
-                                                        Your Name
+                                                <label for="email">
+                                                        Your Email:
                                                 </label>
                                                 <input
-                                                        id="username"
-                                                        name="username"
-                                                        value={
-                                                                formData.username
-                                                        }
-                                                        onChange={handleChange}
-                                                        placeholder="Enter your name"
-                                                        required
-                                                />
-                                        </div>
-                                        <div className="Form-Group">
-                                                <label htmlFor="email">
-                                                        Your Email
-                                                </label>
-                                                <input
+                                                        placeholder="Email"
+                                                        type="text"
                                                         id="email"
                                                         name="email"
-                                                        type="email"
                                                         value={formData.email}
                                                         onChange={handleChange}
-                                                        placeholder="Enter your email"
-                                                        required
                                                 />
                                         </div>
                                         <div className="Form-Group">
-                                                <label htmlFor="password">
-                                                        Choose Your Password
+                                                <label for="password">
+                                                        Enter Your Password:
                                                 </label>
                                                 <input
+                                                        placeholder="Password"
+                                                        type="password"
                                                         id="password"
                                                         name="password"
-                                                        type="password"
                                                         value={
                                                                 formData.password
                                                         }
                                                         onChange={handleChange}
-                                                        placeholder="Enter your password"
-                                                        required
                                                 />
                                         </div>
-                                        <button
-                                                type="submit"
-                                                className="Submit-Button"
-                                        >
-                                                Create Account
+
+                                        <button class="Submit-Button">
+                                                Log In
                                         </button>
                                 </form>
+                                {message && (
+                                        <p className="Error-Message">
+                                                {message}
+                                        </p>
+                                )}
                         </div>
-                        {message && (
-                                <div className="Error-Message">{message}</div>
-                        )}
                 </div>
         );
 }

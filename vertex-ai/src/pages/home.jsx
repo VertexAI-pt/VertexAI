@@ -70,11 +70,10 @@ export default function Home() {
                                                 animate={{ opacity: 1, y: 0 }}
                                                 transition={{ duration: 0.5 }}
                                         >
-                                                <h1>Welcome to VertexAI</h1>
+                                                <h1>WELCOME TO VERTEXAI</h1>
                                                 <p>
-                                                        Empowering developers
-                                                        with cutting-edge AI
-                                                        solutions
+                                                        FROM DEVELOPERS TO
+                                                        DEVELOPERS
                                                 </p>
                                                 <a
                                                         href="/chat"
@@ -111,32 +110,32 @@ export default function Home() {
                                         <h2>What Our Users Say</h2>
                                         <div className="testimonials-grid">
                                                 <Testimonial
-                                                        name="John Doe"
-                                                        role="Full Stack Developer"
+                                                        name="Luis Martins"
+                                                        role="FrontEnd Developer"
                                                         content="VertexAI has significantly improved my productivity. The AI chat is like having a knowledgeable colleague always ready to help!"
                                                 />
                                                 <Testimonial
-                                                        name="Jane Smith"
-                                                        role="AI Researcher"
+                                                        name="Tanjil Khan"
+                                                        role="BackEnd Developer"
                                                         content="I'm impressed by the accuracy and depth of VertexAI's responses. It's an invaluable tool for staying updated in the fast-paced world of AI."
                                                 />
                                                 <Testimonial
-                                                        name="Mike Johnson"
-                                                        role="Startup Founder"
+                                                        name="Ronaldo Mendes"
+                                                        role="VEX User"
                                                         content="VertexAI has been a game-changer for our development team. It's like having an extra team member who's always available to answer questions."
                                                 />
                                         </div>
                                 </section>
 
                                 <section className="faq">
-                                        <h2>Frequently Asked Questions</h2>
+                                        <h2>FAQ</h2>
                                         <FAQItem
                                                 question="What is VertexAI?"
                                                 answer="VertexAI is an AI-powered platform designed to assist developers with coding queries, provide information on the latest technologies, and offer solutions to common programming challenges."
                                         />
                                         <FAQItem
-                                                question="Is VertexAI free to use?"
-                                                answer="Yes, our basic AI chat service is free for all users. We also offer premium plans with additional features for power users and enterprises."
+                                                question="Is VEX free to use?"
+                                                answer="Yes! VEX is an AI-powered platform designed to assist developers with coding queries, provide information on the latest technologies, and offer solutions to common programming challenges."
                                         />
                                         <FAQItem
                                                 question="How accurate is the AI?"

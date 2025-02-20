@@ -79,9 +79,9 @@ export default function Nav() {
                                         <li>
                                                 <a
                                                         className="nav-item"
-                                                        href="/about"
+                                                        href="/products"
                                                 >
-                                                        About
+                                                        Products
                                                 </a>
                                         </li>
                                         <li>
@@ -90,6 +90,14 @@ export default function Nav() {
                                                         href="/chat"
                                                 >
                                                         Chat
+                                                </a>
+                                        </li>
+                                        <li>
+                                                <a
+                                                        className="nav-item"
+                                                        href="/about"
+                                                >
+                                                        About
                                                 </a>
                                         </li>
                                         <li>

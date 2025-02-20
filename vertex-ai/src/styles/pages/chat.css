@@ -35,7 +35,7 @@
 }
 
 .Chat-Header .Exit-Button:hover {
-        background-color: var(--primary-variant);
+        background-color: var(--secondary);
 }
 
 .Chat-Header .Clear-Button {
@@ -124,7 +124,7 @@
 }
 
 .Chat-Footer button:hover {
-        background-color: var(--primary-variant);
+        background-color: var(--secondary);
 }
 
 .Chat-Footer button:disabled {
