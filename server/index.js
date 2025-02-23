@@ -32,16 +32,16 @@ const requestLimiter = rateLimit({
         windowMs: 60 * 1000,
         max: 10,
         keyGenerator: (req) => {
-                console.log("IP detectado:", req.ip);
+                console.log("Mensagem Enviada", req.ip);
                 return req.ip;
         },
         handler: (req, res) => {
-                console.log("Limite atingido para IP:", req.ip);
+                console.log("Limite Atingido pelo Utilizador:", req.ip);
                 res.status(429).json({
-                        error: "Atingiu o limite de requisições.",
+                        error: "Atingiu o Limite de Mensagens.",
                 });
         },
-        message: { error: "Atingiu o limite de requisições." },
+        message: { error: "Atingiu o Limite de Mensagens." },
 });
 
 app.post("/signin", async (req, res) => {
@@ -75,9 +75,9 @@ app.post("/signup", async (req, res) => {
         const existingUser = await User.findOne({ email });
         0;
         if (!existingUser) {
-                return res
-                        .status(400)
-                        .json({ message: "User account doesn't exists..." });
+                return res.status(400).json({
+                        message: "User Account Doesn't Exist :( Please Sign Up Or Try Again.",
+                });
         } else {
                 const isMatch = await bcrypt.compare(
                         password,
@@ -86,7 +86,7 @@ app.post("/signup", async (req, res) => {
                 if (!isMatch) {
                         return res
                                 .status(400)
-                                .json({ message: "Invalid credentials..." });
+                                .json({ message: "Invalid Password!" });
                 }
                 res.cookie("username", existingUser.username, {
                         httpOnly: true,
@@ -107,7 +107,7 @@ app.get("/auth/check", (req, res) => {
         const { username } = req.cookies;
 
         if (!username) {
-                return res.status(401).json({ message: "Not authenticated" });
+                return res.status(401).json({ message: "Not Authenticated" });
         }
 
         res.json({ username });
@@ -120,7 +120,7 @@ app.post("/openai", requestLimiter, async (req, res) => {
         if (!username) {
                 return res
                         .status(401)
-                        .json({ error: "Utilizador não autenticado" });
+                        .json({ error: "User Not Authenticated" });
         }
 
         try {
@@ -140,7 +140,7 @@ app.post("/openai", requestLimiter, async (req, res) => {
                         messages: [
                                 {
                                         role: "system",
-                                        content: "You are an experienced Senior Developer with extensive knowledge about programming languages, best practices, and debugging techniques. Your role is to assist users in understanding programming concepts thoroughly, identifying and correcting errors in their code, explaining code snippets clearly, and generating well-structured code based on user requirements. Code Explanation: When a user provides a code snippet, explain it in detail, covering:What the code does. Key components and their roles. Any relevant programming concepts or best practices. Error Identification**: If a user presents code that contains errors, thoroughly analyze it and: - Identify syntax and logical errors. - Explain why they are errors.- Provide suggestions for correcting these errors, along with examples. 3. **Code Generation**: When asked to generate code, adhere to the following guidelines: - Ask clarifying questions to ensure you understand the requirements thoroughly. Generate clean, efficient, and well-commented code. Include examples and edge cases where possible. 4. **Problem-Solving**: For any programming problem a user presents: - Break down the problem into smaller, manageable parts. - Discuss possible solutions and their implications. - Provide a detailed solution along with relevant code and explanations. 5. **Mentorship**: Adopt a mentoring approach. When a user asks for help, guide them through the solution rather than simply providing the answer. Encourage best practices and learning. 6. **Documentation and Resources**: Suggest relevant documentation or online resources where users can further their understanding of the topic discussed. Now, given this context, please provide the following: - Sample code snippets for explanation. - Specific questions related to programming issues. - Requirements for new code generation. Your explanations should be exhaustive and tailored to users of all skill levels, ensuring that everyone gains a deeper understanding of programming.",
+                                        content: "You are an experienced Senior Developer with extensive knowledge about programming languages, best practices, and debugging techniques. Your role is to assist users in understanding programming concepts thoroughly, identifying and correcting errors in their code, explaining code snippets clearly, and generating well-structured code based on user requirements. Code Explanation: When a user provides a code snippet, explain it in detail, covering:What the code does. Key components and their roles. Any relevant programming concepts or best practices. Error Identification**: If a user presents code that contains errors, thoroughly analyze it and: - Identify syntax and logical errors. - Explain why they are errors.- Provide suggestions for correcting these errors, along with examples. **Code Generation**: When asked to generate code, adhere to the following guidelines: - Ask clarifying questions to ensure you understand the requirements thoroughly. Generate clean, efficient, and well-commented code. Include examples and edge cases where possible. **Problem-Solving**: For any programming problem a user presents: - Break down the problem into smaller, manageable parts. - Discuss possible solutions and their implications. - Provide a detailed solution along with relevant code and explanations. **Mentorship**: Adopt a mentoring approach. When a user asks for help, guide them through the solution rather than simply providing the answer. Encourage best practices and learning. **Documentation and Resources**: Suggest relevant documentation or online resources where users can further their understanding of the topic discussed. Now, given this context, please provide the following: - Sample code snippets for explanation. - Specific questions related to programming issues. - Requirements for new code generation. Your explanations should be exhaustive and tailored to users of all skill levels, ensuring that everyone gains a deeper understanding of programming. If a user speaks Portuguese from Portugal, please provide responses in Portuguese from Portugal not from Brazil.",
                                 },
                                 ...chatHistory.messages,
                         ],
@@ -155,9 +155,9 @@ app.post("/openai", requestLimiter, async (req, res) => {
                         history: chatHistory.messages,
                 });
         } catch (error) {
-                console.error("Erro ao gerar resposta:", error.message);
+                console.error("Error Generating Response:", error.message);
                 res.status(500).json({
-                        error: "Erro ao processar sua solicitação.",
+                        error: "Error Generating Response.",
                 });
         }
 });
@@ -168,18 +168,18 @@ app.get("/openai/history", async (req, res) => {
         if (!username) {
                 return res
                         .status(401)
-                        .json({ error: "Usuário não autenticado" });
+                        .json({ error: "User Not Authenticated" });
         }
 
         try {
                 const chatHistory = await ChatHistory.findOne({ username });
                 res.json({ history: chatHistory ? chatHistory.messages : [] });
         } catch (error) {
-                console.error("Erro ao carregar histórico:", error.message);
-                res.status(500).json({ error: "Erro ao carregar histórico." });
+                console.error("Error Loading History:", error.message);
+                res.status(500).json({ error: "Error Loading History." });
         }
 });
 
 app.listen(8000, () => {
-        console.log("Server Running On 8000");
+        console.log("VERTEXai Server Running!");
 });

@@ -138,10 +138,13 @@ export default function Chat() {
 
                                 typeEffect();
                         } else {
-                                console.error("Erro ao enviar mensagem.");
+                                console.error("Error Sending Message.");
                         }
                 } catch (error) {
-                        console.error("Erro ao conectar ao servidor:", error);
+                        console.error(
+                                "Error Sending Message to Server:",
+                                error,
+                        );
                 }
         };
 
@@ -211,15 +214,17 @@ export default function Chat() {
                 <div className="Chat-Page">
                         <div className="Chat-Header">
                                 <h1>Welcome To VEX</h1>
-                                <a href="/" className="Exit-Button">
-                                        &#8592; Exit
-                                </a>
-                                <button
-                                        onClick={clearConversation}
-                                        className="Clear-Button"
-                                >
-                                        Clear Chat
-                                </button>
+                                <div className="Chat-Header-Buttons">
+                                        <a href="/" className="Exit-Button">
+                                                &#8592; Exit
+                                        </a>
+                                        <button
+                                                onClick={clearConversation}
+                                                className="Clear-Button"
+                                        >
+                                                Clear Chat
+                                        </button>
+                                </div>
                         </div>
 
                         <div
@@ -449,20 +454,20 @@ export default function Chat() {
                                 </AnimatePresence>
                         </div>
 
-                        <div className="Chat-Footer">
-                                <input
-                                        type="text"
-                                        placeholder={
-                                                username
-                                                        ? "Talk to VEX"
-                                                        : "SignUp or Login to use VEX"
-                                        }
+                        <div className="Chat-Footer relative">
+                                <textarea
                                         value={input}
                                         onChange={(e) =>
                                                 setInput(e.target.value)
                                         }
                                         disabled={!username}
+                                        placeholder={
+                                                username
+                                                        ? "Talk to VEX! Type your message here..."
+                                                        : "SignUp or Login to use VEX"
+                                        }
                                 />
+
                                 {username ? (
                                         <button onClick={sendMessage}>
                                                 <FontAwesomeIcon

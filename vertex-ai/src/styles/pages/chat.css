@@ -7,54 +7,61 @@
 }
 
 .Chat-Header {
+        height: 10%;
         background-color: var(--surface);
         color: var(--on-surface);
-        padding: 1rem;
+        padding: 1rem 2rem;
         text-align: center;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
 }
 
 .Chat-Header h1 {
         margin: 0;
-        font-size: 1.5rem;
+        font-size: 1.8rem;
         color: var(--primary);
+        font-weight: bold;
+        letter-spacing: 0.5px;
+}
+
+.Chat-Header-Buttons {
+        display: flex;
+        gap: 1rem;
+}
+
+.Chat-Header .Exit-Button,
+.Chat-Header .Clear-Button {
+        font-size: 1rem;
+        text-decoration: none;
+        border: none;
+        border-radius: 8px;
+        padding: 0.7rem 1.5rem;
+        transition:
+                background-color 0.3s,
+                transform 0.2s;
 }
 
 .Chat-Header .Exit-Button {
-        position: absolute;
-        top: 1rem;
-        left: 1rem;
-        font-size: 1rem;
-        text-decoration: none;
-        color: var(--on-surface);
         background-color: var(--primary);
-        border-radius: 5px;
-        padding: 0.5rem 1rem;
-        transition: background-color 0.3s;
+        color: var(--on-surface);
 }
 
 .Chat-Header .Exit-Button:hover {
         background-color: var(--secondary);
+        transform: translateY(-2px);
 }
 
 .Chat-Header .Clear-Button {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        font-size: 1rem;
-        text-decoration: none;
-        color: var(--on-surface);
         background-color: var(--error);
-        border: none;
-        border-radius: 5px;
-        padding: 0.5rem 1rem;
-        transition: background-color 0.3s;
-        cursor: pointer;
+        color: var(--on-surface);
 }
 
 .Chat-Header .Clear-Button:hover {
         background-color: var(--error-dark);
+        transform: translateY(-2px);
 }
 
 .Chat-Body {
@@ -97,12 +104,23 @@
 }
 
 .Chat-Footer {
+        height: 25%;
         display: flex;
         padding: 1rem;
         background-color: var(--surface);
+        position: relative;
 }
 
-.Chat-Footer input {
+.Chat-Footer .placeholder {
+        position: absolute;
+        top: 1.2rem;
+        left: 1.2rem;
+        color: var(--on-surface-light);
+        pointer-events: none;
+        white-space: pre-wrap;
+}
+
+.Chat-Footer textarea {
         flex: 1;
         padding: 0.8rem;
         font-size: 1rem;
@@ -110,6 +128,9 @@
         color: var(--on-background);
         border: 1px solid var(--primary);
         border-radius: 0.5rem 0 0 0.5rem;
+        resize: none;
+        min-height: 3rem;
+        overflow-y: auto;
 }
 
 .Chat-Footer button {
@@ -128,7 +149,13 @@
 }
 
 .Chat-Footer button:disabled {
-        background-color: var(--surface);
+        background-color: var(--error);
+        color: var(--on-surface);
+        cursor: not-allowed;
+}
+
+.Chat-Footer button:disabled:hover {
+        background-color: var(--error-dark);
         color: var(--on-surface);
         cursor: not-allowed;
 }
