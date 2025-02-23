@@ -15,8 +15,8 @@ export default function Footer() {
                                                         </Link>
                                                 </li>
                                                 <li>
-                                                        <Link href="/blog">
-                                                                Blog
+                                                        <Link href="/terms">
+                                                                Terms Of Service
                                                         </Link>
                                                 </li>
                                                 <li>
@@ -49,7 +49,7 @@ export default function Footer() {
                                 </div>
 
                                 <div className="footer-section">
-                                        <h3>Contact</h3>
+                                        <h3>Follow Us</h3>
                                         <ul className="social-links">
                                                 <li>
                                                         <a
@@ -101,9 +101,6 @@ export default function Footer() {
                                                 </li>
                                         </ul>
                                 </div>
-                        </div>
-                        <div className="footer-bottom">
-                                <p>VERTEXAI.PT</p>
                         </div>
                 </footer>
         );

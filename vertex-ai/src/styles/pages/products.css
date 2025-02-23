@@ -11,6 +11,7 @@
         text-align: center;
         margin-bottom: 1rem;
         color: var(--primary);
+        margin-top: 70px;
 }
 
 .page-description {
@@ -92,7 +93,7 @@
 }
 
 .buy-button:hover {
-        background-color: var(--primary-variant);
+        background-color: var(--secondary);
 }
 
 .buy-button svg {
@@ -102,5 +103,11 @@
 @media (max-width: 768px) {
         .products-grid {
                 grid-template-columns: 1fr;
+        }
+}
+
+@media (max-width: 768px) {
+        .Footer {
+                padding: 1rem;
         }
 }

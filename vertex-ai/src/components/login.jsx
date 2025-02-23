@@ -2,8 +2,9 @@ import "../styles/components/login.css";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { AlertCircle } from "lucide-react";
 
-export default function Login() {
+export default function SignUpForm() {
         //BACK-END
         const [formData, setFormData] = useState({
                 email: "",
@@ -19,7 +20,7 @@ export default function Login() {
         const handleSubmit = async (e) => {
                 e.preventDefault();
                 try {
-                        const response = await axios.post("/login", formData); // Changed to /login
+                        const response = await axios.post("/signup", formData);
                         navigate("/home");
                 } catch (error) {
                         if (error.response) {
@@ -31,58 +32,50 @@ export default function Login() {
         };
 
         return (
-                //FRONT-END
-                <div className="Login-Container">
-                        <div className="Login-Card">
-                                <h1 className="Login-Title">
-                                        Welcome Back To VertexAI!
-                                </h1>
-                                <p className="Login-Description">
-                                        We Are Glad To See You Again
-                                </p>
-                                <form
-                                        onSubmit={handleSubmit}
-                                        className="Login-Form"
-                                >
-                                        <div className="Form-Group">
-                                                <label for="email">
-                                                        Your Email:
-                                                </label>
-                                                <input
-                                                        placeholder="Email"
-                                                        type="text"
-                                                        id="email"
-                                                        name="email"
-                                                        value={formData.email}
-                                                        onChange={handleChange}
-                                                />
-                                        </div>
-                                        <div className="Form-Group">
-                                                <label for="password">
-                                                        Enter Your Password:
-                                                </label>
-                                                <input
-                                                        placeholder="Password"
-                                                        type="password"
-                                                        id="password"
-                                                        name="password"
-                                                        value={
-                                                                formData.password
-                                                        }
-                                                        onChange={handleChange}
-                                                />
-                                        </div>
-
-                                        <button class="Submit-Button">
-                                                Log In
-                                        </button>
-                                </form>
-                                {message && (
-                                        <p className="Error-Message">
-                                                {message}
-                                        </p>
-                                )}
-                        </div>
+                <div className="login-container">
+                        <h1 className="login-title">Welcome Back!</h1>
+                        <p className="login-description">
+                                We're glad to see you again
+                        </p>
+                        <form onSubmit={handleSubmit} className="login-form">
+                                <div className="form-group">
+                                        <label htmlFor="login-email">
+                                                Your Email
+                                        </label>
+                                        <input
+                                                id="login-email"
+                                                name="email"
+                                                type="email"
+                                                placeholder="Enter your email"
+                                                value={formData.email}
+                                                onChange={handleChange}
+                                                required
+                                        />
+                                </div>
+                                <div className="form-group">
+                                        <label htmlFor="login-password">
+                                                Your Password
+                                        </label>
+                                        <input
+                                                id="login-password"
+                                                name="password"
+                                                type="password"
+                                                placeholder="Enter your password"
+                                                value={formData.password}
+                                                onChange={handleChange}
+                                                required
+                                        />
+                                </div>
+                                <button type="submit" className="submit-button">
+                                        Log In
+                                </button>
+                        </form>
+                        {message && (
+                                <div className="error-message">
+                                        <AlertCircle size={18} />
+                                        {message}
+                                </div>
+                        )}
                 </div>
         );
 }

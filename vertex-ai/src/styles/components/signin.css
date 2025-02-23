@@ -1,97 +1,113 @@
-.Signin-Container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        color: #ffffff;
-        padding: 2rem;
+.signin-container {
+        width: 100%;
+        max-width: 520px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
 }
 
-.Signin-Card {
-        background-color: #1a1a1a;
-        padding: 2rem;
+.signin-title {
+        font-size: 56px;
+        font-weight: 700;
+        margin-bottom: 16px;
+        color: #000000;
+        letter-spacing: -0.02em;
+        line-height: 1.1;
+}
+
+.signin-description {
+        font-size: 20px;
+        color: rgba(0, 0, 0, 0.8);
+        margin-bottom: 48px;
+        font-weight: 500;
+}
+
+.signin-form {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+}
+
+.form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+}
+
+.form-group label {
+        font-size: 15px;
+        font-weight: 600;
+        color: #000000;
+        margin-left: 4px;
+}
+
+.form-group input {
+        width: 100%;
+        padding: 18px 20px;
+        font-size: 16px;
+        background-color: rgba(255, 255, 255, 0.18);
+        border: 1px solid rgba(0, 0, 0, 0.1);
         border-radius: 12px;
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        width: 100%;
-        max-width: 400px;
-        height: 500px;
-        display: flex;
-        flex-direction: column;
+        color: #000000;
+        transition: all 0.2s ease;
 }
 
-.Signin-Title {
-        font-size: 2rem;
-        font-weight: bold;
-        margin-bottom: 0.5rem;
-        color: #ffffff;
+.form-group input::placeholder {
+        color: rgba(0, 0, 0, 0.4);
 }
 
-.Signin-Description {
-        font-size: 1rem;
-        color: #b3b3b3;
-        margin-bottom: 1.5rem;
-}
-
-.Signin-Form {
-        flex-grow: 1;
-        display: flex;
-        flex-direction: column;
-}
-
-.Form-Group {
-        margin-bottom: 1.5rem;
-}
-
-.Form-Group label {
-        display: block;
-        margin-bottom: 0.5rem;
-        font-size: 0.9rem;
-        color: #ffffff;
-}
-
-.Form-Group input {
-        width: 100%;
-        padding: 0.75rem;
-        font-size: 1rem;
-        background-color: #2a2a2a;
-        border: 1px solid #3a3a3a;
-        border-radius: 6px;
-        color: #ffffff;
-        transition: border-color 0.3s ease;
-}
-
-.Form-Group input:focus {
+.form-group input:focus {
         outline: none;
-        border-color: #4a4a4a;
+        background-color: rgba(255, 255, 255, 0.25);
+        border-color: rgba(0, 0, 0, 0.2);
+        box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.05);
 }
 
-.Form-Group input::placeholder {
-        color: #808080;
-}
-
-.Submit-Button {
+.submit-button {
         width: 100%;
-        padding: 0.75rem;
-        font-size: 1rem;
-        font-weight: bold;
-        background-color: #ffffff;
-        color: #1a1a1a;
+        padding: 18px;
+        margin-top: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        background-color: #000000;
+        color: #bb86fc;
         border: none;
-        border-radius: 6px;
+        border-radius: 12px;
         cursor: pointer;
-        transition: background-color 0.3s ease;
-        margin-top: auto;
+        transition: all 0.2s ease;
+        position: relative;
+        overflow: hidden;
 }
 
-.Submit-Button:hover {
-        background-color: #e6e6e6;
+.submit-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
-.Error-Message {
-        margin-top: 1rem;
-        padding: 0.75rem;
-        background-color: #ff4d4d;
-        color: #ffffff;
-        border-radius: 6px;
-        font-size: 0.9rem;
+.submit-button:active {
+        transform: translateY(0);
+}
+
+.error-message {
+        margin-top: 20px;
+        padding: 16px 20px;
+        background-color: rgba(255, 59, 48, 0.9);
+        color: white;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+}
+
+@media (max-width: 768px) {
+        .signin-title {
+                font-size: 40px;
+        }
+
+        .signin-description {
+                font-size: 18px;
+                margin-bottom: 36px;
+        }
 }

@@ -205,7 +205,7 @@ export default function Chat() {
                         chatContainerRef.current.scrollTop =
                                 chatContainerRef.current.scrollHeight;
                 }
-        }, [chatContainerRef]); //Corrected dependency
+        }, [chatContainerRef]);
 
         return (
                 <div className="Chat-Page">
@@ -260,7 +260,7 @@ export default function Chat() {
                                                                         {msg.role !==
                                                                                 "user" && (
                                                                                 <img
-                                                                                        src="../img/Vertexailogo.png"
+                                                                                        src="../img/VEXLOGO.png"
                                                                                         alt="Assistant"
                                                                                         className="Assistant-Avatar"
                                                                                 />

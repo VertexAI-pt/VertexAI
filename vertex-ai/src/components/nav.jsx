@@ -53,7 +53,7 @@ export default function Nav() {
                                 <a href="/home" className="App-logo">
                                         <img
                                                 className="logo"
-                                                src="/img/logoalt.png"
+                                                src="img/VEXLOGO.png"
                                                 alt="Vertex.AI Logo"
                                         />
                                 </a>
@@ -98,6 +98,14 @@ export default function Nav() {
                                                         href="/about"
                                                 >
                                                         About
+                                                </a>
+                                        </li>
+                                        <li>
+                                                <a
+                                                        className="nav-item"
+                                                        href="/contact"
+                                                >
+                                                        Contact
                                                 </a>
                                         </li>
                                         <li>

@@ -1,10 +1,12 @@
-import "../styles/components/signin.css";
+"use client";
+
 import { useState } from "react";
+import "../styles/components/signin.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { AlertCircle } from "lucide-react";
 
 export default function Signin() {
-        //BACK-END
         const [formData, setFormData] = useState({
                 username: "",
                 email: "",
@@ -24,77 +26,71 @@ export default function Signin() {
                         const response = await axios.post("/signin", formData);
                         navigate("/home");
                 } catch (error) {
-                        if (error.response) {
-                                setMessage(error.response.data.message);
-                        } else {
-                                setMessage("Algum Erro Ocurreu :(");
-                        }
+                        setMessage(
+                                error.response?.data?.message ||
+                                        "An error occurred",
+                        );
                 }
         };
 
         return (
-                <div className="Signin-Container">
-                        <div className="Signin-Card">
-                                <h1 className="Signin-Title">Join VertexAI!</h1>
-                                <p className="Signin-Description">
-                                        Create Your Account And Join Us
-                                </p>
-                                <form onSubmit={handleSubmit}>
-                                        <div className="Form-Group">
-                                                <label htmlFor="username">
-                                                        Your Name
-                                                </label>
-                                                <input
-                                                        id="username"
-                                                        name="username"
-                                                        value={
-                                                                formData.username
-                                                        }
-                                                        onChange={handleChange}
-                                                        placeholder="Enter your name"
-                                                        required
-                                                />
-                                        </div>
-                                        <div className="Form-Group">
-                                                <label htmlFor="email">
-                                                        Your Email
-                                                </label>
-                                                <input
-                                                        id="email"
-                                                        name="email"
-                                                        type="email"
-                                                        value={formData.email}
-                                                        onChange={handleChange}
-                                                        placeholder="Enter your email"
-                                                        required
-                                                />
-                                        </div>
-                                        <div className="Form-Group">
-                                                <label htmlFor="password">
-                                                        Choose Your Password
-                                                </label>
-                                                <input
-                                                        id="password"
-                                                        name="password"
-                                                        type="password"
-                                                        value={
-                                                                formData.password
-                                                        }
-                                                        onChange={handleChange}
-                                                        placeholder="Enter your password"
-                                                        required
-                                                />
-                                        </div>
-                                        <button
-                                                type="submit"
-                                                className="Submit-Button"
-                                        >
-                                                Create Account
-                                        </button>
-                                </form>
-                        </div>
+                <div className="signin-container">
+                        <h1 className="signin-title">Join VertexAI</h1>
+                        <p className="signin-description">
+                                Create your account and join us
+                        </p>
+                        <form onSubmit={handleSubmit} className="signin-form">
+                                <div className="form-group">
+                                        <label htmlFor="username">
+                                                Your Name
+                                        </label>
+                                        <input
+                                                id="username"
+                                                name="username"
+                                                type="text"
+                                                placeholder="Enter your name"
+                                                value={formData.username}
+                                                onChange={handleChange}
+                                                required
+                                        />
+                                </div>
+                                <div className="form-group">
+                                        <label htmlFor="email">
+                                                Your Email
+                                        </label>
+                                        <input
+                                                id="email"
+                                                name="email"
+                                                type="email"
+                                                placeholder="Enter your email"
+                                                value={formData.email}
+                                                onChange={handleChange}
+                                                required
+                                        />
+                                </div>
+                                <div className="form-group">
+                                        <label htmlFor="password">
+                                                Choose Your Password
+                                        </label>
+                                        <input
+                                                id="password"
+                                                name="password"
+                                                type="password"
+                                                placeholder="Enter your password"
+                                                value={formData.password}
+                                                onChange={handleChange}
+                                                required
+                                        />
+                                </div>
+                                <button type="submit" className="submit-button">
+                                        Create Account
+                                </button>
+                        </form>
                         {message && (
-                                <div className="error-message">{message}</div>
+                                <div className="error-message">
+                                        <AlertCircle size={18} />
+                                        {message}
+                                </div>
                         )}
                 </div>
         );

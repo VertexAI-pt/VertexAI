@@ -5,13 +5,13 @@ import Signin from "../components/signin.jsx";
 
 export default function Log() {
         return (
-                <div className="App">
+                <div className="app">
                         <Nav />
-                        <div className="Auth-Container">
-                                <div className="Auth-Column">
+                        <div className="auth-container">
+                                <div className="auth-column signin-column">
                                         <Signin />
                                 </div>
-                                <div className="Auth-Column">
+                                <div className="auth-column login-column">
                                         <Login />
                                 </div>
                         </div>
