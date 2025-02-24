@@ -26,7 +26,7 @@
 
 .footer-section ul {
         list-style: none;
-        padding: 0;
+        padding: 10;
         margin: 0;
 }
 
@@ -47,9 +47,15 @@
 .social-links li a {
         display: flex;
         align-items: center;
-        gap: 0.5rem;
+        gap: 0.1rem;
 }
 
+.App-logo-footer {
+        display: flex;
+        flex: row;
+        justify-content: right;
+        margin-top: -6rem;
+}
 .footer-bottom {
         text-align: center;
         margin-top: 2rem;

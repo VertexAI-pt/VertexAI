@@ -73,7 +73,7 @@ export default function Nav() {
                                                         className="nav-item"
                                                         href="/home"
                                                 >
-                                                        Home
+                                                        HOME
                                                 </a>
                                         </li>
                                         <li>
@@ -81,7 +81,7 @@ export default function Nav() {
                                                         className="nav-item"
                                                         href="/products"
                                                 >
-                                                        Products
+                                                        PRODUCTS
                                                 </a>
                                         </li>
                                         <li>
@@ -89,7 +89,7 @@ export default function Nav() {
                                                         className="nav-item"
                                                         href="/chat"
                                                 >
-                                                        Chat
+                                                        VEX
                                                 </a>
                                         </li>
                                         <li>
@@ -97,7 +97,7 @@ export default function Nav() {
                                                         className="nav-item"
                                                         href="/about"
                                                 >
-                                                        About
+                                                        ABOUT
                                                 </a>
                                         </li>
                                         <li>
@@ -105,7 +105,7 @@ export default function Nav() {
                                                         className="nav-item"
                                                         href="/contact"
                                                 >
-                                                        Contact
+                                                        CONTACT
                                                 </a>
                                         </li>
                                         <li>

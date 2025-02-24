@@ -2,13 +2,14 @@
         width: 100%;
         max-width: 520px;
         margin: 0 auto;
+        margin-bottom: 120px;
 }
 
 .login-title {
         font-size: 56px;
         font-weight: 700;
         margin-bottom: 16px;
-        color: #bb86fc;
+        color: var(--primary);
         letter-spacing: -0.02em;
         line-height: 1.1;
 }
@@ -26,16 +27,21 @@
         gap: 28px;
 }
 
+.login-password {
+        color: white;
+}
+
 .form-group {
         display: flex;
         flex-direction: column;
         gap: 10px;
+        color: white;
 }
 
 .form-group label {
         font-size: 15px;
         font-weight: 600;
-        color: rgba(255, 255, 255, 0.9);
+
         margin-left: 4px;
 }
 

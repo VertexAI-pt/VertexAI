@@ -53,7 +53,7 @@ export default function SignUpForm() {
                                         />
                                 </div>
                                 <div className="form-group">
-                                        <label htmlFor="login-password">
+                                        <label className="login-password">
                                                 Your Password
                                         </label>
                                         <input

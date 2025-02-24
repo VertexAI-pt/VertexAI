@@ -1,6 +1,6 @@
 import "../styles/components/footer.css";
 import { Link } from "react-router-dom";
-import { Instagram, Facebook, MessageCircle } from "lucide-react";
+import { Instagram, Facebook, Linkedin } from "lucide-react";
 
 export default function Footer() {
         return (
@@ -89,14 +89,27 @@ export default function Footer() {
                                                                 target="_blank"
                                                                 rel="noopener noreferrer"
                                                         >
-                                                                <MessageCircle
+                                                                <Linkedin
                                                                         size={
                                                                                 20
                                                                         }
                                                                 />
                                                                 <span>
-                                                                        WhatsApp
+                                                                        LinkedIn
                                                                 </span>
+                                                        </a>
+                                                </li>
+
+                                                <li>
+                                                        <a
+                                                                href="/home"
+                                                                className="App-logo-footer"
+                                                        >
+                                                                <img
+                                                                        className="logo"
+                                                                        src="img/VEXLOGO.png"
+                                                                        alt="Vertex.AI Logo"
+                                                                />
                                                         </a>
                                                 </li>
                                         </ul>

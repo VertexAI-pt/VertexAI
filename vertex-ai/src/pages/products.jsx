@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ShoppingCart, Check } from "lucide-react";
 import "../styles/pages/products.css";
 import Nav from "../components/nav";
+import Footer from "../components/footer";
 
 const ProductCard = ({ name, description, price, features }) => (
         <motion.div
@@ -11,7 +12,7 @@ const ProductCard = ({ name, description, price, features }) => (
         >
                 <h2 className="product-name">{name}</h2>
                 <p className="product-description">{description}</p>
-                <div className="product-price">${price}</div>
+                <div className="product-price">{price}€/Month</div>
                 <ul className="product-features">
                         {features.map((feature, index) => (
                                 <li key={index}>
@@ -19,20 +20,20 @@ const ProductCard = ({ name, description, price, features }) => (
                                 </li>
                         ))}
                 </ul>
-                <button className="buy-button">
+                <a href="/contact" className="buy-button">
                         <ShoppingCart size={20} />
                         Buy Now
-                </button>
+                </a>
         </motion.div>
 );
 
 export default function Products() {
         const products = [
                 {
-                        name: "AI Assistant Pro",
+                        name: "VEX Assistant Pro",
                         description:
-                                "Advanced AI model for natural language processing and task automation.",
-                        price: 99.99,
+                                "Advanced AI model for natural language processing and task automation",
+                        price: 399.99,
                         features: [
                                 "24/7 AI-powered assistance",
                                 "Natural language understanding",
@@ -42,29 +43,29 @@ export default function Products() {
                         ],
                 },
                 {
-                        name: "DeepVision AI",
+                        name: "Stock Sentiment Analyzer",
                         description:
-                                "State-of-the-art computer vision model for image and video analysis.",
-                        price: 149.99,
+                                "AI-driven model that analyzes market for smarter investment decisions",
+                        price: 949.99,
                         features: [
-                                "Object detection and tracking",
-                                "Facial recognition",
-                                "Image classification",
-                                "Scene understanding",
-                                "Real-time video analysis",
+                                "Scrapes news, Twitter and Reddit",
+                                "Uses NLP for classification",
+                                "Detects bullish, bearish or trends",
+                                "Provides real-time market insights",
+                                "Integrates with trading platforms",
                         ],
                 },
                 {
                         name: "PredictAI",
                         description:
-                                "Powerful predictive analytics model for business intelligence and forecasting.",
-                        price: 199.99,
+                                "AI that analyzes symptoms to provide diagnoses and next steps for doctors",
+                        price: 749.99,
                         features: [
-                                "Advanced data analysis",
-                                "Trend forecasting",
-                                "Anomaly detection",
-                                "Customizable dashboards",
-                                "Integration with popular BI tools",
+                                "Understands symptoms via NLP",
+                                "Matches with medical databases",
+                                "Provides condition likelihoods",
+                                "Suggests next steps",
+                                "Integrates with telemedicine",
                         ],
                 },
         ];
@@ -102,6 +103,7 @@ export default function Products() {
                                         ))}
                                 </div>
                         </div>
+                        <Footer />
                 </div>
         );
 }

@@ -1,13 +1,13 @@
 .contact-page {
         background-color: var(--background);
         min-height: 100vh;
-        padding: 80px 0;
 }
 
 .contact-container {
         max-width: 1200px;
         margin: 0 auto;
-        padding: 0 20px;
+        padding-bottom: 10%;
+        margin-top: 10%;
 }
 
 .contact-title {
@@ -72,6 +72,10 @@
 @media (max-width: 768px) {
         .contact-content {
                 flex-direction: column;
+        }
+
+        .contact-page {
+                margin-top: 30%;
         }
 
         .contact-info,

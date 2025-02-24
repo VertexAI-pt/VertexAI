@@ -2,7 +2,8 @@
         min-height: 100vh;
         display: flex;
         flex-direction: column;
-        background-color: #000000;
+        background-color: var(--surface);
+        margin-top: 5%;
 }
 
 .auth-container {

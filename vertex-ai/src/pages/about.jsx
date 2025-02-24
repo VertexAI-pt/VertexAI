@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import "../styles/pages/about.css";
 import Nav from "../components/nav";
+import Footer from "../components/footer";
 
 const FeatureCard = ({ title, description, icon: Icon }) => (
         <motion.div
@@ -68,16 +69,16 @@ export default function About() {
                 {
                         name: "Luis Martins",
                         role: "Founder & Front-End Developer",
-                        bio: "bio",
-                        image: "/placeholder.svg?height=200&width=200",
+                        bio: "Profissional versátil, com experiência em testes de alta voltagem, desenvolvimento de software, marketing e design. Adaptável, comunicativo e focado na melhoria contínua.",
+                        image: "./img/luis.png?height=200&width=200",
                         linkedin: "https://www.linkedin.com/in/luis-martins-10a1612b2/",
                         instagram: "https://www.instagram.com/luis_martins_25/",
                 },
                 {
                         name: "Tanjil Khan",
                         role: "Co-Founder & Back-End Developer",
-                        bio: "bio",
-                        image: "/placeholder.svg?height=200&width=200",
+                        bio: "Apaixonado por tecnologia, com experiência em backend, bases de dados e desenvolvimento de APIs. Motivado pela aprendizagem contínua, disciplina e desafios, tanto na programação quanto na musculação.",
+                        image: "./img/tanjil.jpg?height=200&width=200",
                         linkedin: "https://www.linkedin.com/in/tanjil-khan/",
                         instagram: "https://www.instagram.com/tsk.xz/",
                 },
@@ -114,7 +115,7 @@ export default function About() {
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ duration: 0.5 }}
                                 >
-                                        About Our AI Startup
+                                        About VERTEXai
                                 </motion.h1>
 
                                 <motion.p
@@ -266,6 +267,7 @@ export default function About() {
                                         </button>
                                 </motion.div>
                         </div>
+                        <Footer />
                 </div>
         );
 }
