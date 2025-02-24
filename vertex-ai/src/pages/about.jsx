@@ -69,7 +69,7 @@ export default function About() {
                 {
                         name: "Luis Martins",
                         role: "Founder & Front-End Developer",
-                        bio: "Profissional versátil, com experiência em testes de alta voltagem, desenvolvimento de software, marketing e design. Adaptável, comunicativo e focado na melhoria contínua.",
+                        bio: "Versatile professional with experience in high-voltage testing, software development, marketing, and design. Adaptable, communicative, and focused on continuous improvement.",
                         image: "./img/luis.png?height=200&width=200",
                         linkedin: "https://www.linkedin.com/in/luis-martins-10a1612b2/",
                         instagram: "https://www.instagram.com/luis_martins_25/",
@@ -77,7 +77,7 @@ export default function About() {
                 {
                         name: "Tanjil Khan",
                         role: "Co-Founder & Back-End Developer",
-                        bio: "Apaixonado por tecnologia, com experiência em backend, bases de dados e desenvolvimento de APIs. Motivado pela aprendizagem contínua, disciplina e desafios, tanto na programação quanto na musculação.",
+                        bio: "Passionate about technology, with experience in backend, databases, and API development. Driven by continuous learning, discipline, and challenges, both in programming and bodybuilding.",
                         image: "./img/tanjil.jpg?height=200&width=200",
                         linkedin: "https://www.linkedin.com/in/tanjil-khan/",
                         instagram: "https://www.instagram.com/tsk.xz/",

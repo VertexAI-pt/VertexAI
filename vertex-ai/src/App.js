@@ -6,6 +6,7 @@ import Log from "./pages/log";
 import About from "./pages/about";
 import Products from "./pages/products";
 import Contact from "./pages/contact";
+import Terms from "./pages/terms";
 
 export default function App() {
         return (
@@ -18,13 +19,10 @@ export default function App() {
                                                 path="/home"
                                                 element={<Home />}
                                         />
-                                        <Route
-                                                path="/chat"
-                                                element={<Chat />}
-                                        />
+                                        <Route path="/VEX" element={<Chat />} />
 
                                         <Route
-                                                path="/about"
+                                                path="/about-us"
                                                 element={<About />}
                                         />
 
@@ -36,6 +34,11 @@ export default function App() {
                                         <Route
                                                 path="/contact"
                                                 element={<Contact />}
+                                        />
+
+                                        <Route
+                                                path="/terms-of-service"
+                                                element={<Terms />}
                                         />
 
                                         <Route

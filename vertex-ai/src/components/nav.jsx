@@ -87,7 +87,7 @@ export default function Nav() {
                                         <li>
                                                 <a
                                                         className="nav-item"
-                                                        href="/chat"
+                                                        href="/VEX"
                                                 >
                                                         VEX
                                                 </a>
@@ -95,7 +95,7 @@ export default function Nav() {
                                         <li>
                                                 <a
                                                         className="nav-item"
-                                                        href="/about"
+                                                        href="/about-us"
                                                 >
                                                         ABOUT
                                                 </a>

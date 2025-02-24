@@ -76,7 +76,7 @@ export default function Home() {
                                                         DEVELOPERS
                                                 </p>
                                                 <a
-                                                        href="/chat"
+                                                        href="/VEX"
                                                         className="cta-button"
                                                 >
                                                         Try Our AI Chat{" "}
