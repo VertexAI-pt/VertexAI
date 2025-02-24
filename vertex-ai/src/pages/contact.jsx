@@ -45,7 +45,9 @@ const Contact = () => {
                                                 </div>
                                                 <div className="info-item">
                                                         <Mail className="icon" />
-                                                        <p>help@vertexai.pt</p>
+                                                        <a href="mailto:help@vertexai.pt">
+                                                                help@vertexai.pt
+                                                        </a>
                                                 </div>
                                                 <div className="social-icons">
                                                         <a

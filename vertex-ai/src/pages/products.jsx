@@ -56,7 +56,7 @@ export default function Products() {
                         ],
                 },
                 {
-                        name: "PredictAI",
+                        name: "Symptom Checker",
                         description:
                                 "AI that analyzes symptoms to provide diagnoses and next steps for doctors",
                         price: 749.99,

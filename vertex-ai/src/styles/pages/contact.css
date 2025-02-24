@@ -47,6 +47,19 @@
         font-size: 18px;
 }
 
+.info-item a {
+        color: var(--secondary);
+        text-decoration: underline;
+}
+
+.info-item a:hover {
+        color: var(--primary);
+}
+
+.info-item a:active {
+        color: var(--primary);
+}
+
 .social-icons {
         display: flex;
         gap: 20px;

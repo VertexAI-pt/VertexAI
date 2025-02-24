@@ -186,8 +186,8 @@ export default function Terms() {
                                 <p>
                                         If you have any questions about these
                                         Terms, please contact us at{" "}
-                                        <a href="mailto:support@vertexai.com">
-                                                support@vertexai.com
+                                        <a href="mailto:help@vertexai.pt">
+                                                help@vertexai.pt
                                         </a>
                                         .
                                 </p>
