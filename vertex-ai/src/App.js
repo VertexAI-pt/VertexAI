@@ -7,6 +7,7 @@ import About from "./pages/about";
 import Products from "./pages/products";
 import Contact from "./pages/contact";
 import Terms from "./pages/terms";
+import Dashboard from "./pages/dashboard";
 
 export default function App() {
         return (
@@ -39,6 +40,11 @@ export default function App() {
                                         <Route
                                                 path="/terms-of-service"
                                                 element={<Terms />}
+                                        />
+
+                                        <Route
+                                                path="/dashboard"
+                                                element={<Dashboard />}
                                         />
 
                                         <Route

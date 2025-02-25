@@ -3,7 +3,18 @@
 import "../styles/components/nav.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { User, LogOut, Menu, X } from "lucide-react";
+import {
+        User,
+        LogOut,
+        Menu,
+        X,
+        Home,
+        Package,
+        MessageSquare,
+        Info,
+        Phone,
+        LayoutDashboard,
+} from "lucide-react";
 import axios from "axios";
 
 export default function Nav() {
@@ -61,6 +72,11 @@ export default function Nav() {
                                 <button
                                         className="menu-toggle"
                                         onClick={toggleMenu}
+                                        aria-label={
+                                                isMenuOpen
+                                                        ? "Close menu"
+                                                        : "Open menu"
+                                        }
                                 >
                                         {isMenuOpen ? <X /> : <Menu />}
                                 </button>
@@ -73,7 +89,8 @@ export default function Nav() {
                                                         className="nav-item"
                                                         href="/home"
                                                 >
-                                                        HOME
+                                                        <Home size={16} />
+                                                        <span>HOME</span>
                                                 </a>
                                         </li>
                                         <li>
@@ -81,7 +98,8 @@ export default function Nav() {
                                                         className="nav-item"
                                                         href="/products"
                                                 >
-                                                        PRODUCTS
+                                                        <Package size={16} />
+                                                        <span>PRODUCTS</span>
                                                 </a>
                                         </li>
                                         <li>
@@ -89,7 +107,10 @@ export default function Nav() {
                                                         className="nav-item"
                                                         href="/VEX"
                                                 >
-                                                        VEX
+                                                        <MessageSquare
+                                                                size={16}
+                                                        />
+                                                        <span>VEX</span>
                                                 </a>
                                         </li>
                                         <li>
@@ -97,7 +118,8 @@ export default function Nav() {
                                                         className="nav-item"
                                                         href="/about-us"
                                                 >
-                                                        ABOUT
+                                                        <Info size={16} />
+                                                        <span>ABOUT</span>
                                                 </a>
                                         </li>
                                         <li>
@@ -105,9 +127,27 @@ export default function Nav() {
                                                         className="nav-item"
                                                         href="/contact"
                                                 >
-                                                        CONTACT
+                                                        <Phone size={16} />
+                                                        <span>CONTACT</span>
                                                 </a>
                                         </li>
+                                        {username && (
+                                                <li>
+                                                        <a
+                                                                className="nav-item"
+                                                                href="/dashboard"
+                                                        >
+                                                                <LayoutDashboard
+                                                                        size={
+                                                                                16
+                                                                        }
+                                                                />
+                                                                <span>
+                                                                        DASHBOARD
+                                                                </span>
+                                                        </a>
+                                                </li>
+                                        )}
                                         <li>
                                                 {username ? (
                                                         <button
@@ -118,7 +158,7 @@ export default function Nav() {
                                                         >
                                                                 <LogOut
                                                                         size={
-                                                                                20
+                                                                                16
                                                                         }
                                                                 />
                                                                 <span>
@@ -132,7 +172,7 @@ export default function Nav() {
                                                         >
                                                                 <User
                                                                         size={
-                                                                                20
+                                                                                16
                                                                         }
                                                                 />
                                                                 <span>

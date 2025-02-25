@@ -7,9 +7,14 @@ import Markdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaperPlane, faLock } from "@fortawesome/free-solid-svg-icons";
+import {
+        faPaperPlane,
+        faLock,
+        faSpinner,
+} from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { MessageSquare, Clock, BarChart2, Zap } from "lucide-react";
 
 export default function Chat() {
         const [username, setUsername] = useState(null);
@@ -17,6 +22,14 @@ export default function Chat() {
         const [chatHistory, setChatHistory] = useState([]);
         const navigate = useNavigate();
         const chatContainerRef = useRef(null);
+
+        // New state variables for chat stats
+        const [totalMessages, setTotalMessages] = useState(0);
+        const [averageResponseTime, setAverageResponseTime] = useState(0);
+        const [longestMessage, setLongestMessage] = useState(0);
+        const [fastestResponse, setFastestResponse] = useState(
+                Number.POSITIVE_INFINITY,
+        );
 
         const [formData, setFormData] = useState({
                 email: "",
@@ -28,6 +41,8 @@ export default function Chat() {
                 email: "",
                 password: "",
         });
+
+        const [isThinking, setIsThinking] = useState(false);
 
         const handleChange = (e) => {
                 const { name, value } = e.target;
@@ -73,6 +88,14 @@ export default function Chat() {
 
                 const userMessage = { role: "user", content: input };
                 setChatHistory((prev) => [...prev, userMessage]);
+                setInput("");
+                setIsThinking(true);
+
+                // Update stats
+                setTotalMessages((prev) => prev + 1);
+                setLongestMessage((prev) => Math.max(prev, input.length));
+
+                const startTime = Date.now();
 
                 try {
                         const response = await fetch(
@@ -91,7 +114,21 @@ export default function Chat() {
                         if (response.ok) {
                                 const data = await response.json();
                                 const assistantMessage = data.message.content;
-                                setInput("");
+
+                                const endTime = Date.now();
+                                const responseTime = endTime - startTime;
+
+                                // Update stats
+                                setTotalMessages((prev) => prev + 1);
+                                setLongestMessage((prev) =>
+                                        Math.max(prev, assistantMessage.length),
+                                );
+                                setFastestResponse((prev) =>
+                                        Math.min(prev, responseTime),
+                                );
+                                setAverageResponseTime(
+                                        (prev) => (prev + responseTime) / 2,
+                                );
 
                                 let currentMessage = "";
                                 let index = 0;
@@ -133,18 +170,21 @@ export default function Chat() {
                                                         chatContainerRef.current.scrollTop =
                                                                 chatContainerRef.current.scrollHeight;
                                                 }, 0);
+                                                setIsThinking(false);
                                         }
                                 };
 
                                 typeEffect();
                         } else {
                                 console.error("Error Sending Message.");
+                                setIsThinking(false);
                         }
                 } catch (error) {
                         console.error(
                                 "Error Sending Message to Server:",
                                 error,
                         );
+                        setIsThinking(false);
                 }
         };
 
@@ -208,7 +248,7 @@ export default function Chat() {
                         chatContainerRef.current.scrollTop =
                                 chatContainerRef.current.scrollHeight;
                 }
-        }, [chatContainerRef]);
+        }, []);
 
         return (
                 <div className="Chat-Page">
@@ -227,6 +267,45 @@ export default function Chat() {
                                 </div>
                         </div>
 
+                        {username && (
+                                <div className="Chat-Dashboard">
+                                        <div className="Dashboard-Item">
+                                                <MessageSquare size={24} />
+                                                <span>
+                                                        Total Messages:{" "}
+                                                        {totalMessages}
+                                                </span>
+                                        </div>
+                                        <div className="Dashboard-Item">
+                                                <Clock size={24} />
+                                                <span>
+                                                        Avg Response Time:{" "}
+                                                        {averageResponseTime.toFixed(
+                                                                2,
+                                                        )}
+                                                        ms
+                                                </span>
+                                        </div>
+                                        <div className="Dashboard-Item">
+                                                <BarChart2 size={24} />
+                                                <span>
+                                                        Longest Message:{" "}
+                                                        {longestMessage} chars
+                                                </span>
+                                        </div>
+                                        <div className="Dashboard-Item">
+                                                <Zap size={24} />
+                                                <span>
+                                                        Fastest Response:{" "}
+                                                        {fastestResponse ===
+                                                        Number.POSITIVE_INFINITY
+                                                                ? "N/A"
+                                                                : `${fastestResponse}ms`}
+                                                </span>
+                                        </div>
+                                </div>
+                        )}
+
                         <div
                                 className="Chat-Body"
                                 ref={chatContainerRef}
@@ -234,18 +313,103 @@ export default function Chat() {
                         >
                                 <AnimatePresence>
                                         {username ? (
-                                                chatHistory.map(
-                                                        (msg, index) => (
+                                                <>
+                                                        {chatHistory.map(
+                                                                (
+                                                                        msg,
+                                                                        index,
+                                                                ) => (
+                                                                        <motion.div
+                                                                                key={
+                                                                                        index
+                                                                                }
+                                                                                className={
+                                                                                        msg.role ===
+                                                                                        "user"
+                                                                                                ? "User-Message"
+                                                                                                : "Assistant-Message"
+                                                                                }
+                                                                                initial={{
+                                                                                        opacity: 0,
+                                                                                        y: 20,
+                                                                                }}
+                                                                                animate={{
+                                                                                        opacity: 1,
+                                                                                        y: 0,
+                                                                                }}
+                                                                                exit={{
+                                                                                        opacity: 0,
+                                                                                        y: -20,
+                                                                                }}
+                                                                                transition={{
+                                                                                        duration: 0.3,
+                                                                                }}
+                                                                        >
+                                                                                {msg.role !==
+                                                                                        "user" && (
+                                                                                        <img
+                                                                                                src="../img/VEXLOGO.png"
+                                                                                                alt="Assistant"
+                                                                                                className="Assistant-Avatar"
+                                                                                        />
+                                                                                )}
+                                                                                <Markdown
+                                                                                        components={{
+                                                                                                code({
+                                                                                                        node,
+                                                                                                        inline,
+                                                                                                        className,
+                                                                                                        children,
+                                                                                                        ...props
+                                                                                                }) {
+                                                                                                        const match =
+                                                                                                                /language-(\w+)/.exec(
+                                                                                                                        className ||
+                                                                                                                                "",
+                                                                                                                );
+                                                                                                        return !inline &&
+                                                                                                                match ? (
+                                                                                                                <SyntaxHighlighter
+                                                                                                                        style={
+                                                                                                                                vscDarkPlus
+                                                                                                                        }
+                                                                                                                        language={
+                                                                                                                                match[1]
+                                                                                                                        }
+                                                                                                                        PreTag="div"
+                                                                                                                        children={String(
+                                                                                                                                children,
+                                                                                                                        ).replace(
+                                                                                                                                /\n$/,
+                                                                                                                                "",
+                                                                                                                        )}
+                                                                                                                        {...props}
+                                                                                                                />
+                                                                                                        ) : (
+                                                                                                                <code
+                                                                                                                        className={
+                                                                                                                                className
+                                                                                                                        }
+                                                                                                                        {...props}
+                                                                                                                >
+                                                                                                                        {
+                                                                                                                                children
+                                                                                                                        }
+                                                                                                                </code>
+                                                                                                        );
+                                                                                                },
+                                                                                        }}
+                                                                                >
+                                                                                        {
+                                                                                                msg.content
+                                                                                        }
+                                                                                </Markdown>
+                                                                        </motion.div>
+                                                                ),
+                                                        )}
+                                                        {isThinking && (
                                                                 <motion.div
-                                                                        key={
-                                                                                index
-                                                                        }
-                                                                        className={
-                                                                                msg.role ===
-                                                                                "user"
-                                                                                        ? "User-Message"
-                                                                                        : "Assistant-Message"
-                                                                        }
+                                                                        className="Assistant-Message Thinking-Message"
                                                                         initial={{
                                                                                 opacity: 0,
                                                                                 y: 20,
@@ -262,68 +426,20 @@ export default function Chat() {
                                                                                 duration: 0.3,
                                                                         }}
                                                                 >
-                                                                        {msg.role !==
-                                                                                "user" && (
-                                                                                <img
-                                                                                        src="../img/VEXLOGO.png"
-                                                                                        alt="Assistant"
-                                                                                        className="Assistant-Avatar"
-                                                                                />
-                                                                        )}
-                                                                        <Markdown
-                                                                                components={{
-                                                                                        code({
-                                                                                                node,
-                                                                                                inline,
-                                                                                                className,
-                                                                                                children,
-                                                                                                ...props
-                                                                                        }) {
-                                                                                                const match =
-                                                                                                        /language-(\w+)/.exec(
-                                                                                                                className ||
-                                                                                                                        "",
-                                                                                                        );
-                                                                                                return !inline &&
-                                                                                                        match ? (
-                                                                                                        <SyntaxHighlighter
-                                                                                                                style={
-                                                                                                                        vscDarkPlus
-                                                                                                                }
-                                                                                                                language={
-                                                                                                                        match[1]
-                                                                                                                }
-                                                                                                                PreTag="div"
-                                                                                                                children={String(
-                                                                                                                        children,
-                                                                                                                ).replace(
-                                                                                                                        /\n$/,
-                                                                                                                        "",
-                                                                                                                )}
-                                                                                                                {...props}
-                                                                                                        />
-                                                                                                ) : (
-                                                                                                        <code
-                                                                                                                className={
-                                                                                                                        className
-                                                                                                                }
-                                                                                                                {...props}
-                                                                                                        >
-                                                                                                                {
-                                                                                                                        children
-                                                                                                                }
-                                                                                                        </code>
-                                                                                                );
-                                                                                        },
-                                                                                }}
-                                                                        >
-                                                                                {
-                                                                                        msg.content
+                                                                        <FontAwesomeIcon
+                                                                                icon={
+                                                                                        faSpinner
                                                                                 }
-                                                                        </Markdown>
+                                                                                spin
+                                                                        />
+                                                                        <span>
+                                                                                VEX
+                                                                                is
+                                                                                thinking...
+                                                                        </span>
                                                                 </motion.div>
-                                                        ),
-                                                )
+                                                        )}
+                                                </>
                                         ) : (
                                                 <div className="Login-SignIn-Form">
                                                         <div className="Form-Container">
@@ -460,18 +576,28 @@ export default function Chat() {
                                         onChange={(e) =>
                                                 setInput(e.target.value)
                                         }
-                                        disabled={!username}
+                                        disabled={!username || isThinking}
                                         placeholder={
                                                 username
-                                                        ? "Talk to VEX! Type your message here..."
+                                                        ? isThinking
+                                                                ? "VEX is thinking..."
+                                                                : "Talk to VEX! Type your message here..."
                                                         : "SignUp or Login to use VEX"
                                         }
                                 />
 
                                 {username ? (
-                                        <button onClick={sendMessage}>
+                                        <button
+                                                onClick={sendMessage}
+                                                disabled={isThinking}
+                                        >
                                                 <FontAwesomeIcon
-                                                        icon={faPaperPlane}
+                                                        icon={
+                                                                isThinking
+                                                                        ? faSpinner
+                                                                        : faPaperPlane
+                                                        }
+                                                        spin={isThinking}
                                                 />
                                         </button>
                                 ) : (

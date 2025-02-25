@@ -103,6 +103,29 @@
         object-fit: cover;
 }
 
+.Thinking-Message {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-style: italic;
+}
+
+.Thinking-Message svg {
+        color: var(--primary);
+}
+
+.Dashboard-Item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-style: italic;
+        margin-left: 10px;
+}
+
+.Dashboard-Item svg {
+        color: var(--primary);
+}
+
 .Chat-Footer {
         height: 25%;
         display: flex;
@@ -255,6 +278,7 @@
 
 @media (max-width: 768px) {
         .Form-Container {
+                margin-top: 100%;
                 flex-direction: column;
                 width: 100%;
         }

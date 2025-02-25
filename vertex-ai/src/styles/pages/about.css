@@ -172,4 +172,8 @@
         .features-grid {
                 grid-template-columns: 1fr;
         }
+
+        .about-page {
+                margin-top: 30%;
+        }
 }

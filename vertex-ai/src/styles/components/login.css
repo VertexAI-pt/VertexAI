@@ -1,12 +1,17 @@
 .login-container {
         width: 100%;
-        max-width: 520px;
+        max-width: 420px;
         margin: 0 auto;
-        margin-bottom: 120px;
+        padding: 40px;
+        background: rgba(18, 18, 18, 0.8);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .login-title {
-        font-size: 56px;
+        font-size: 36px;
         font-weight: 700;
         margin-bottom: 16px;
         color: var(--primary);
@@ -15,45 +20,40 @@
 }
 
 .login-description {
-        font-size: 20px;
+        font-size: 16px;
         color: rgba(255, 255, 255, 0.7);
-        margin-bottom: 48px;
-        font-weight: 500;
+        margin-bottom: 32px;
+        font-weight: 400;
 }
 
 .login-form {
         display: flex;
         flex-direction: column;
-        gap: 28px;
-}
-
-.login-password {
-        color: white;
+        gap: 24px;
 }
 
 .form-group {
         display: flex;
         flex-direction: column;
-        gap: 10px;
-        color: white;
+        gap: 8px;
 }
 
 .form-group label {
-        font-size: 15px;
+        font-size: 14px;
         font-weight: 600;
-
+        color: rgba(255, 255, 255, 0.8);
         margin-left: 4px;
 }
 
 .form-group input {
         width: 100%;
-        padding: 18px 20px;
+        padding: 12px 16px;
         font-size: 16px;
         background-color: rgba(255, 255, 255, 0.06);
         border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 12px;
+        border-radius: 8px;
         color: white;
-        transition: all 0.2s ease;
+        transition: all 0.3s ease;
 }
 
 .form-group input::placeholder {
@@ -62,30 +62,31 @@
 
 .form-group input:focus {
         outline: none;
-        background-color: rgba(255, 255, 255, 0.08);
-        border-color: #bb86fc;
-        box-shadow: 0 0 0 4px rgba(187, 134, 252, 0.1);
+        background-color: rgba(255, 255, 255, 0.1);
+        border-color: var(--primary);
+        box-shadow: 0 0 0 2px rgba(187, 134, 252, 0.2);
 }
 
 .submit-button {
         width: 100%;
-        padding: 18px;
-        margin-top: 12px;
+        padding: 14px;
+        margin-top: 8px;
         font-size: 16px;
         font-weight: 600;
-        background-color: #bb86fc;
-        color: #000000;
+        background-color: var(--primary);
+        color: var(--on-primary);
         border: none;
-        border-radius: 12px;
+        border-radius: 8px;
         cursor: pointer;
-        transition: all 0.2s ease;
+        transition: all 0.3s ease;
         position: relative;
         overflow: hidden;
 }
 
 .submit-button:hover {
+        background-color: var(--primary-variant);
         transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(187, 134, 252, 0.2);
+        box-shadow: 0 4px 12px rgba(187, 134, 252, 0.3);
 }
 
 .submit-button:active {
@@ -93,25 +94,30 @@
 }
 
 .error-message {
-        margin-top: 20px;
-        padding: 16px 20px;
-        background-color: rgba(255, 59, 48, 0.9);
-        color: white;
-        border-radius: 12px;
+        margin-top: 16px;
+        padding: 12px 16px;
+        background-color: rgba(255, 59, 48, 0.1);
+        color: #ff3b30;
+        border-radius: 8px;
         font-size: 14px;
         font-weight: 500;
         display: flex;
         align-items: center;
         gap: 8px;
+        border: 1px solid rgba(255, 59, 48, 0.3);
 }
 
 @media (max-width: 768px) {
+        .login-container {
+                padding: 30px;
+        }
+
         .login-title {
-                font-size: 40px;
+                font-size: 28px;
         }
 
         .login-description {
-                font-size: 18px;
-                margin-bottom: 36px;
+                font-size: 14px;
+                margin-bottom: 24px;
         }
 }
