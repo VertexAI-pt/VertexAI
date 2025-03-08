@@ -66,7 +66,7 @@ export default function Chat() {
                 const fetchHistory = async () => {
                         try {
                                 const response = await fetch(
-                                        "http://localhost:8000/openai/history",
+                                        "/openai/history",
                                         { credentials: "include" },
                                 );
                                 if (response.ok) {
@@ -99,7 +99,7 @@ export default function Chat() {
 
                 try {
                         const response = await fetch(
-                                "http://localhost:8000/openai",
+                                "/openai",
                                 {
                                         method: "POST",
                                         headers: {
