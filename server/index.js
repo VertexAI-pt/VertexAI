@@ -7,8 +7,9 @@ const cookieParser = require("cookie-parser");
 const OpenAI = require("openai");
 const rateLimit = require("express-rate-limit");
 const ChatHistory = require("./models/ChatHistory");
+const dotenv = require("dotenv")
 
-require("dotenv").config();
+dotenv.config();
 
 const app = express();
 
@@ -179,6 +180,19 @@ app.get("/openai/history", async (req, res) => {
                 res.status(500).json({ error: "Error Loading History." });
         }
 });
+
+const __dirname = path.resolve() // set __dirname to current directory
+
+if(process.env.NODE_ENV === 'production'){
+    app.use(express.static(path.join(__dirname, '/vertex-ai/build')))
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'vertex-ai', 'build', 'index.html'))
+    })
+} else {
+    app.get('/', (req, res) => {
+        res.send('API está a rodar...');
+    });
+}
 
 app.listen(8000, () => {
         console.log("VERTEXai Server Running!");
