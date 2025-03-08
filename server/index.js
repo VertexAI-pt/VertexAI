@@ -8,6 +8,7 @@ const OpenAI = require("openai");
 const rateLimit = require("express-rate-limit");
 const ChatHistory = require("./models/ChatHistory");
 const dotenv = require("dotenv")
+const path = require("path");
 
 dotenv.config();
 
@@ -180,8 +181,6 @@ app.get("/openai/history", async (req, res) => {
                 res.status(500).json({ error: "Error Loading History." });
         }
 });
-
-const __dirname = path.resolve() // set __dirname to current directory
 
 if(process.env.NODE_ENV === 'production'){
     app.use(express.static(path.join(__dirname, '/vertex-ai/build')))
